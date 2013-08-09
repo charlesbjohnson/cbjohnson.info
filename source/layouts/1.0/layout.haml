@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %title= full_title
+  %body
+    %header
+      %h1= link_to 'cbjohnson', data.site.root_path
+    %aside
+      %nav
+        %ul
+          %li= link_to 'info', data.site.root_path
+          %li= link_to 'blog', data.site.blog_path
+          %li= link_to 'contact', data.site.contact_path
+    %section
+      %h2= current_page.data.title
+      = yield

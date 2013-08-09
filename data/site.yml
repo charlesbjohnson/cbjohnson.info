@@ -1,0 +1,3 @@
+root_path: '/'
+blog_path: '/blog'
+contact_path: '/contact'

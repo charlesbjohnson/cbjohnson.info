@@ -32,24 +32,26 @@
 # Helpers
 ###
 
+# Automatically create directories for files (pretty URLs)
+activate :directory_indexes
+
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
 # Reload the browser automatically whenever files change
-# activate :livereload
+activate :livereload
 
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+helpers do
+  def full_title
+    title = ""
+    title << "#{current_page.data.article} | " if current_page.data.article
+    title << "#{current_page.data.title} | cbjohnson"
+  end
+end
 
 set :css_dir, 'stylesheets'
-
 set :js_dir, 'javascripts'
-
-set :images_dir, 'images'
 
 # Build-specific configuration
 configure :build do
