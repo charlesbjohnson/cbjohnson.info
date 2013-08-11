@@ -1,3 +1,9 @@
-root_path: '/'
-blog_path: '/blog'
-contact_path: '/contact'
+name:              cbjohnson
+root_path:         '/'
+blog_path:         '/blog'
+blog_archive_path: '/blog/archive'
+contact_path:      '/contact'
+email:             'mail@cbjohnson.info'
+twitter_url:       'https://twitter.com/charbajo'
+github_url:        'https://github.com/charlesbjohnson'
+lastfm_url:        'http://www.last.fm/user/cbj7777'

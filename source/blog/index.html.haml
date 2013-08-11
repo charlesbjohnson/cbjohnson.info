@@ -1,0 +1,5 @@
+---
+section: blog
+---
+- blog.articles.take(3).each do |article|
+  = partial 'partials/preview', :locals => { :article => article }

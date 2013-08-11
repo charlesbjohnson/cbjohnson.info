@@ -10,7 +10,12 @@
         %ul
           %li= link_to 'info', data.site.root_path
           %li= link_to 'blog', data.site.blog_path
+          %li= link_to 'archive', data.site.blog_archive_path
           %li= link_to 'contact', data.site.contact_path
+      %ul
+        %li= link_to '@charbajo', data.site.twitter_url
+        %li= link_to 'github', data.site.github_url
+        %li= link_to 'last.fm', data.site.lastfm_url
     %section
-      %h2= current_page.data.title
+      %h2= section_title
       = yield

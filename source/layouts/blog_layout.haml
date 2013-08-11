@@ -1,0 +1,6 @@
+- wrap_layout 'layout'
+%article
+  %h3= current_page.data.title
+  %footer
+    %time{:datetime => current_page.data.date}= format_date(current_page.data.date)
+  %p= yield
