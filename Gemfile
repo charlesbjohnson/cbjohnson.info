@@ -5,5 +5,7 @@ ruby '2.0.0'
 gem 'middleman',      '~> 3.1.4'
 gem 'middleman-blog', '~> 3.2.0'
 
+gem 'zurb-foundation', '~> 4.3.1'
+
 # Live-reloading plugin
 gem 'middleman-livereload', '~> 3.1.0'

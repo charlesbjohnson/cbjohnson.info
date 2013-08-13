@@ -8,7 +8,7 @@ module DateHelpers
   #
   # "2013-08-10 02:48 UTC" becomes "August 10, 2013"
   def format_date(s)
-    Date.parse(s).strftime('%b %e, %Y')
+    Date.parse(s.to_s).strftime('%b %e, %Y')
   end
 
 end
