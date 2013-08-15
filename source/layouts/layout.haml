@@ -2,20 +2,35 @@
 %html
   %head
     %title= full_title
+    = stylesheet_link_tag 'all'
   %body
-    %header
-      %h1= link_to 'cbjohnson', data.site.root_path
-    %aside
-      %nav
-        %ul
-          %li= link_to 'info', data.site.root_path
-          %li= link_to 'blog', data.site.blog_path
-          %li= link_to 'archive', data.site.blog_archive_path
-          %li= link_to 'contact', data.site.contact_path
-      %ul
-        %li= link_to '@charbajo', data.site.twitter_url
-        %li= link_to 'github', data.site.github_url
-        %li= link_to 'last.fm', data.site.lastfm_url
-    %section
-      %h2= section_title
-      = yield
+    .container
+      %section.main-content
+        .row
+          .large-12.columns
+            %header
+              %h1.logo= link_to data.site.name, data.site.routes[:info]
+        .row
+          .large-2.small-12.columns
+            %aside.sidebar
+              %nav.menu
+                .row
+                  .large-offset-3.columns
+                    %ul.no-bullet.collapse.side-nav
+                      - data.site.routes.each do |name, url|
+                        %li{:class => ('active' if current_page.url == url)}
+                          = link_to name, url
+                      - data.site.social_links.each do |social|
+                        %li.find-me= link_to social.name, social.url
+          .large-10.columns
+            %section
+              %h2= section_title
+              .row
+                .large-11.large-centered.columns
+                  = yield
+      .footer-container
+    %footer.footer-content
+      .row
+        .large-6.large-centered.columns
+          %p
+            %small= "© 2013 charles b johnson. this site is powered by #{link_to 'middleman', data.site.middleman_url} and hosted on #{link_to 'github', data.site.github_repo_url}."

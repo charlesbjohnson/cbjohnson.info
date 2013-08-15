@@ -1,0 +1,57 @@
+// mixins
+@mixin colorize-link($color, $amount) {
+  color: $color;
+  &:hover {
+    color: darken($color, $amount);
+  }
+}
+
+// background color, text and link colors
+html, body {
+  background-color: $gray;
+}
+
+.logo a {
+  @include colorize-link($orange, 10%);
+}
+
+.menu .side-nav a {
+  @include colorize-link($blue, 10%);
+  font-weight: bold;
+}
+
+.menu .find-me a {
+  @include colorize-link($purple, 5%);
+}
+
+h3 {
+  color: $yellow;
+}
+
+// main layout
+.container {
+  padding-top: 5%;
+}
+
+// this feels like cheating, but it was the simplest thing I could do while
+// trying to make use of the tools I had available (I'm not great at css layout)
+@include sticky-footer(3%, ".container", ".footer-container", '.footer-content');
+
+@media only screen and (max-width: 768px) {
+  .sidebar .collapse {
+    @include inline-list;
+  }
+}
+
+// blog or any other post layout
+.blog-preview-content {
+  margin-bottom: 10%;
+}
+
+.blog-stamp{
+  font-size: 0.95em;
+  font-style: italic;
+  font-weight: bold;
+  color: darken($white, 17.5%);
+  margin: 0;
+}
