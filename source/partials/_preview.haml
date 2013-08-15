@@ -1,6 +1,5 @@
-%article
+%article.blog-preview-content
   %h3= link_to article.title, article
-  %footer
-    %p
-      %time{:datetime => article.date}= format_date(article.date)
-  %p= article.data.preview
+  = partial 'partials/blog_stamp', :locals => { :date => article.date }
+  - full ||= false
+  %p= full ? article.body : article.data.preview

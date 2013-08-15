@@ -1,6 +1,5 @@
-- wrap_layout 'layout'do
+- wrap_layout 'layout' do
   %article
     %h3= current_page.data.title
-    %footer
-      %time{:datetime => current_page.data.date}= format_date(current_page.data.date)
-    %p= yield
+    = partial 'partials/blog_stamp', :locals => { :date => current_page.data.date }
+    = yield
