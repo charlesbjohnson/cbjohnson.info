@@ -6,7 +6,6 @@ $green: #36B06A;
 $blue: #44B5B2;
 $purple: #8776B8;
 $orange: #FFB159;
-$yellow: #B0AE2F;
 
 //
 // Foundation Variables
@@ -191,6 +190,7 @@ $h1-font-size: emCalc(60);
 $h2-font-size: emCalc(39);
 // $h2-font-size: emCalc(37);
 // $h3-font-size: emCalc(27);
+$h4-font-size: emCalc(21);
 // $h4-font-size: emCalc(23);
 // $h5-font-size: emCalc(18);
 // $h6-font-size: 1em;
@@ -1094,7 +1094,7 @@ $anchor-font-color-hover: darken($secondary-color, 10%);
 // We use these to control link styles.
 
 // $side-nav-link-color: $primary-color;
-$side-nav-link-color-active: lighten($primary-color, 20%);
+$side-nav-link-color-active: $primary-color;
 // $side-nav-link-color-active: lighten(#000, 30%);
 // $side-nav-font-size: emCalc(14);
 // $side-nav-font-weight: bold;

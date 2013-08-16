@@ -22,7 +22,7 @@
                 %nav.menu
                   %ul.no-bullet.collapse.side-nav
                     - data.site.routes.each do |name, url|
-                      %li{:class => ('active' if current_page.url == url)}
+                      %li{:class => ('active' if active_section(url))}
                         = link_to name, url
                 %section.social
                   %ul.no-bullet.collapse.side-nav
