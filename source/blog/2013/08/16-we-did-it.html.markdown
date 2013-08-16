@@ -25,9 +25,8 @@ Other than Middleman (and a few extensions), I'm also using Haml, Sass,
 and pieces of [Foundation][foundation]. I realize that aesthetically the site is
 basically just colored-text (call me minimalist) and that technically
 it is more layout, styling and configuration than anything else. Overall,
-though I'm pleased that I can mold this into whatever I want it to be (and,
+though, I'm pleased that I can mold this into whatever I want it to be (and,
 by extension, prevent it from becoming something that I *don't* want it to be).
-
 
 Even if it means that the site just devolves into a red panda gif feed, at least
 I am empowered to do so.
