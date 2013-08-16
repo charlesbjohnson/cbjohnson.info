@@ -114,6 +114,6 @@ end
 activate :deploy do |deploy|
   deploy.build_before = true
   deploy.method = :git
-  deploy.branch = "master" # default: gh-pages
+  # deploy.branch = "custom-branch" # default: gh-pages
   # deploy.remote = "custom-remote" # remote name or git url, default: origin
 end
