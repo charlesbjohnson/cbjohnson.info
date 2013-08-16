@@ -2,9 +2,10 @@
 %html
   %head
     %meta{:charset => 'utf-8'}
-    %meta{:content => 'IE=edge,chrome=1', 'http-equiv' => 'X-UA-Compatible'}
 
     %title= full_title
+
+    %meta{:content => 'IE=edge,chrome=1', 'http-equiv' => 'X-UA-Compatible'}
     %meta{:content => 'width=device-width', :name => 'viewport'}
 
     = stylesheet_link_tag 'all'
@@ -15,15 +16,18 @@
           %header.large-12.columns
             %h1.logo= link_to data.site.name, data.site.routes[:info]
         .row
-          %aside.sidebar.large-2.small-12.columns
+          %aside.sidebar.large-2.columns
             .row
-              %nav.menu.large-offset-3.columns
-                %ul.no-bullet.collapse.side-nav
-                  - data.site.routes.each do |name, url|
-                    %li{:class => ('active' if current_page.url == url)}
-                      = link_to name, url
-                  - data.site.social_links.each do |social|
-                    %li.find-me= link_to social.name, social.url
+              .sidebar-container.large-offset-3.columns
+                %nav.menu
+                  %ul.no-bullet.collapse.side-nav
+                    - data.site.routes.each do |name, url|
+                      %li{:class => ('active' if current_page.url == url)}
+                        = link_to name, url
+                %section.social
+                  %ul.no-bullet.collapse.side-nav
+                    - data.site.social_links.each do |social|
+                      %li= link_to social.name, social.url
           %section.large-10.columns
             %h2= section_title
             .row

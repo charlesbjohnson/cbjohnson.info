@@ -15,13 +15,14 @@ html, body {
   @include colorize-link($orange, 10%);
 }
 
-.menu .side-nav a {
-  @include colorize-link($blue, 10%);
+.sidebar {
   font-weight: bold;
-}
-
-.menu .find-me a {
-  @include colorize-link($purple, 5%);
+  .menu a {
+    @include colorize-link($blue, 10%);
+  }
+  .social a {
+    @include colorize-link($purple, 5%);
+  }
 }
 
 .me {
@@ -38,14 +39,23 @@ h3 {
   padding-top: 5%;
 }
 
+@media only screen and (min-width: 768px) {
 // this feels like cheating, but it was the simplest thing I could do while
 // trying to make use of the tools I had available (I'm not great at css layout)
-@include sticky-footer(3%, ".container", ".footer-container", '.footer-content');
+  @include sticky-footer(3%, ".container", ".footer-container", ".footer-content");
+}
 
+// small layout
 @media only screen and (max-width: 768px) {
   .sidebar .collapse {
     @include inline-list;
   }
+
+  .container {
+    padding: 0;
+  }
+
+  @include sticky-footer(20%, ".container", ".footer-container", ".footer-content");
 }
 
 // blog or any other post layout
