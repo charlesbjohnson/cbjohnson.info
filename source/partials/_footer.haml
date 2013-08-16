@@ -1,0 +1,10 @@
+%p
+  %small
+    © 2013 charles b johnson. this site is powered by
+    = link_to 'middleman', data.site.middleman_url
+    and hosted on
+    -# I would normally just put \. after the link_to, but Haml
+    -# indents it so it sticks out when it's rendered. Is there a
+    -# better way to do this?
+    = succeed "." do
+      = link_to 'github', data.site.github_repo_url

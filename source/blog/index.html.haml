@@ -1,5 +1,6 @@
 ---
 section: blog
 ---
-- blog.articles.take(3).each do |article|
-  = partial 'partials/preview', :locals => { :article => article, :full => true }
+- page_articles.take(3).each do |article|
+  %article.blog-preview-content
+    = partial 'partials/preview', :locals => { :article => article, :full => true }

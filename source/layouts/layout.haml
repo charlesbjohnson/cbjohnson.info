@@ -7,30 +7,24 @@
     .container
       %section.main-content
         .row
-          .large-12.columns
-            %header
-              %h1.logo= link_to data.site.name, data.site.routes[:info]
+          %header.large-12.columns
+            %h1.logo= link_to data.site.name, data.site.routes[:info]
         .row
-          .large-2.small-12.columns
-            %aside.sidebar
-              %nav.menu
-                .row
-                  .large-offset-3.columns
-                    %ul.no-bullet.collapse.side-nav
-                      - data.site.routes.each do |name, url|
-                        %li{:class => ('active' if current_page.url == url)}
-                          = link_to name, url
-                      - data.site.social_links.each do |social|
-                        %li.find-me= link_to social.name, social.url
-          .large-10.columns
-            %section
-              %h2= section_title
-              .row
-                .large-11.large-centered.columns
-                  = yield
+          %aside.sidebar.large-2.small-12.columns
+            .row
+              %nav.menu.large-offset-3.columns
+                %ul.no-bullet.collapse.side-nav
+                  - data.site.routes.each do |name, url|
+                    %li{:class => ('active' if current_page.url == url)}
+                      = link_to name, url
+                  - data.site.social_links.each do |social|
+                    %li.find-me= link_to social.name, social.url
+          %section.large-10.columns
+            %h2= section_title
+            .row
+              %section.large-11.large-centered.columns
+                = yield
       .footer-container
-    %footer.footer-content
-      .row
-        .large-6.large-centered.columns
-          %p
-            %small= "© 2013 charles b johnson. this site is powered by #{link_to 'middleman', data.site.middleman_url} and hosted on #{link_to 'github', data.site.github_repo_url}."
+    .row
+      %footer.footer-content.large-6.large-centered.columns
+        = partial 'partials/footer'

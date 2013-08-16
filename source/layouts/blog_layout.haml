@@ -1,5 +1,6 @@
 - wrap_layout 'layout' do
   %article
-    %h3= current_page.data.title
-    = partial 'partials/blog_stamp', :locals => { :date => current_page.data.date }
+    %h3= current_article.title
+    = partial 'partials/blog_stamp',
+      :locals => { :date => current_article.date }
     = yield
