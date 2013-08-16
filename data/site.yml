@@ -15,5 +15,6 @@ social_links:
   - name: last.fm
     url:  http://www.last.fm/user/cbj7777
 
+resume_url:
 middleman_url:   http://middlemanapp.com/
-github_repo_url: https://github.com/
+github_repo_url: https://github.com/charlesbjohnson/charlesbjohnson.github.io

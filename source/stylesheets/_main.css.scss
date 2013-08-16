@@ -24,6 +24,11 @@ html, body {
   @include colorize-link($purple, 5%);
 }
 
+.me {
+  color: complement($orange);
+  font-weight: bold;
+}
+
 h3 {
   color: $yellow;
 }
