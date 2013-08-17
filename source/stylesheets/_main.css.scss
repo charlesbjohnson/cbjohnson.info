@@ -35,11 +35,9 @@ html, body {
   padding-top: 2.5%;
 }
 
-@media only screen and (min-width: 768px) {
 // this feels like cheating, but it was the simplest thing I could do while
 // trying to make use of the tools I had available (I'm not great at css layout)
-  @include sticky-footer(3%, ".container", ".footer-container", ".footer-content");
-}
+@include sticky-footer(2%, ".container", ".footer-container", ".footer-content");
 
 // small layout
 @media only screen and (max-width: 768px) {
@@ -50,8 +48,6 @@ html, body {
   .container {
     padding: 0;
   }
-
-  @include sticky-footer(20%, ".container", ".footer-container", ".footer-content");
 }
 
 // blog or any other post layout
