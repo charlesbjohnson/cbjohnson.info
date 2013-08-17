@@ -1,2 +1,2 @@
 %p.blog-stamp
-  %time{:datetime => date}= format_date(date)
+  %time{:datetime => date}= date.strftime('%b %e, %Y')
