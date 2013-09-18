@@ -33,8 +33,8 @@ Time.zone = 'Eastern Time (US & Canada)'
 # Blog
 activate :blog do |blog|
   blog.prefix            = 'blog'
-  blog.permalink         = ":year/:month/:title.html"
-  blog.sources           = ":year/:month/:day-:title.html"
+  blog.permalink         = ':year/:month/:title.html'
+  blog.sources           = ':year/:month/:day-:title.html'
   blog.layout            = 'blog_layout'
 
   # blog.taglink = "tags/:tag.html"
