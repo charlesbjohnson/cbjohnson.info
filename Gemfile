@@ -2,12 +2,10 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 #ruby-gemset=charlesbjohnson-middleman
 
-gem 'middleman',            '~> 3.1.4'
-gem 'middleman-blog',       '~> 3.2.0'
-gem 'middleman-imageoptim', '~> 0.0.4'
-gem 'middleman-deploy',     '~> 0.1.2'
+gem 'middleman',            '3.1.6'
+gem 'middleman-blog',       '3.3.0'
+gem 'middleman-livereload', '3.1.0'
+gem 'middleman-imageoptim', '0.0.4'
+gem 'middleman-deploy',     '0.1.3'
 
-gem 'zurb-foundation',      '~> 4.3.1', :require => false
-
-# Live-reloading plugin
-gem 'middleman-livereload', '~> 3.1.0'
+gem 'susy',                 '1.0.9'
