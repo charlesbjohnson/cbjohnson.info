@@ -1,5 +1,6 @@
 ---
-section: archive
+section: Archive
 ---
 - page_articles.each do |article|
-  = partial 'partials/preview', :locals => { :article => article }
+  %article
+    = partial 'partials/preview', locals: { article: article }

@@ -1,7 +1,3 @@
-# Use parts of foundation
-require 'zurb-foundation'
-
-
 # Change Compass configuration
 # compass_config do |config|
 #   config.output_style = :compact
@@ -35,7 +31,7 @@ activate :blog do |blog|
   blog.prefix            = 'blog'
   blog.permalink         = ':year/:month/:title.html'
   blog.sources           = ':year/:month/:day-:title.html'
-  blog.layout            = 'blog_layout'
+  blog.layout            = 'blog'
 
   # blog.taglink = "tags/:tag.html"
   # blog.summary_separator = /(READMORE)/

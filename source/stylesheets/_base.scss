@@ -1,0 +1,181 @@
+// TYPOGRAPHY
+body {
+  color: $white-fg;
+  font-family: $fonts;
+}
+
+.lower { text-transform: lowercase; }
+
+.title {
+  @extend .lower;
+  font-weight: bold;
+}
+
+.head h1 {
+  @extend .title;
+  a { @include colorize-link($orange-fg); }
+  font-size: 4rem;
+}
+
+.footer {
+  @extend .lower;
+  text-align: center;
+  p {
+    margin: 0;
+    line-height: 0.75;
+  }
+}
+
+.head-main h2 {
+  @extend .title;
+  color: $red-fg;
+  font-size: 2.5rem;
+  margin-top: 0;
+}
+
+.content-main h3 {
+  color: $red-fg;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 0.8rem;
+}
+
+a {
+  @include colorize-link($green-fg);
+  text-decoration: none;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0;
+  margin-bottom: 5%;
+}
+
+small { font-size: 0.8rem; }
+
+.me {
+  @extend .title;
+  color: $orange-fg;
+}
+
+.sidenav {
+  @extend .title;
+  margin-top: 0.5%;
+  ul { margin: 0; }
+  li { margin-bottom: 1rem; }
+}
+
+.menu {
+  margin-bottom: 3rem;
+  a { @include colorize-link($blue-fg); }
+}
+
+.active {
+  a { @include colorize-link($red-fg); }
+}
+
+.social {
+  a { @include colorize-link($purple-fg); }
+}
+
+.blog-stamp {
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: bold;
+  margin: 0;
+}
+
+.post-article {
+  margin-bottom: 10%;
+  &:last-child { margin-bottom: 0; }
+}
+
+
+// GENERAL LAYOUT
+@include border-box-sizing;
+
+
+// FOOTER LAYOUT
+html, body, .wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  height: auto;
+  min-height: 100%;
+}
+
+.container { padding-bottom: $footer-padding; }
+
+.footer {
+  clear: both;
+  height: $footer-height;
+  margin-top: -($footer-height);
+  position: relative;
+}
+
+
+// DESKTOP LAYOUT
+@include at-breakpoint($desktop) {
+  .container {
+    @include container;
+  }
+
+  .head { @include span-columns(12 omega, 12); }
+
+  nav { @include span-columns(2, 12); }
+
+  main {
+    @include span-columns(8 omega, 12);
+    @include post(2);
+    .content-main { margin-left: 5%; }
+  }
+}
+
+
+// MOBILE LAYOUT
+@include at-breakpoint($mobile) {
+  .container {
+    @include container;
+    padding-bottom: 12.5%;
+  }
+
+  .sidenav {
+    .menu, .social { margin-bottom: 1.25rem; }
+    ul {
+      padding: 0;
+      text-align: center;
+    }
+    li {
+      display: inline;
+      margin: 0 3%;
+    }
+  }
+
+  .head h1 {
+    text-align: center;
+    font-size: 3.25rem;
+  }
+  .head-main h2 { font-size: 1.85rem; }
+  .content-main h3 { font-size: 1.25rem; }
+  p { font-size: 1rem; }
+
+  .head h1, .head-main h2 { margin: 1rem 0; }
+  .footer { padding: 0 10%; }
+}
+
+
+// GENERAL APPEARANCE
+body {
+  background-color: $gray-bg;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}

@@ -1,0 +1,9 @@
+%nav
+  %ul
+    .menu
+      - data.site.routes.each do |name, url|
+        %li{class: ('active' if active_section(url))}
+          = link_to name.capitalize, url
+    .social
+      - data.site.social_links.each do |social|
+        %li= link_to social.name, social.url
