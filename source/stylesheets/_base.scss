@@ -11,11 +11,31 @@ body {
   font-weight: bold;
 }
 
-.head h1 {
+h1 {
   @extend .title;
   a { @include colorize-link($orange-fg); }
   font-size: 4rem;
 }
+
+h2 {
+  @extend .title;
+  color: $red-fg;
+  font-size: 2.5rem;
+  margin-top: 0;
+}
+
+h3, h4, h5 { font-weight: bold; }
+
+h3 {
+  color: $red-fg;
+  font-size: 1.75rem;
+  margin: 0;
+  margin-bottom: 0.8rem;
+}
+
+h4 { font-size: 1.3rem; }
+
+h5 { font-size: 1.25rem; }
 
 .footer {
   @extend .lower;
@@ -24,21 +44,6 @@ body {
     margin: 0;
     line-height: 0.75;
   }
-}
-
-.head-main h2 {
-  @extend .title;
-  color: $red-fg;
-  font-size: 2.5rem;
-  margin-top: 0;
-}
-
-.content-main h3 {
-  color: $red-fg;
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 0.8rem;
 }
 
 a {
@@ -156,15 +161,19 @@ html, body, .wrapper {
     }
   }
 
-  .head h1 {
+  h1, h2 { margin: 1rem 0; }
+
+  h1 {
     text-align: center;
     font-size: 3.25rem;
   }
-  .head-main h2 { font-size: 1.85rem; }
-  .content-main h3 { font-size: 1.25rem; }
+
+  h2 { font-size: 1.85rem; }
+
+  h3 { font-size: 1.25rem; }
+
   p { font-size: 1rem; }
 
-  .head h1, .head-main h2 { margin: 1rem 0; }
   .footer { padding: 0 10%; }
 }
 

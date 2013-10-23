@@ -1,0 +1,57 @@
+---
+title: What's new
+date: 2013-10-22 18:59 EDT
+preview: What I've been working on
+---
+It's been a while since I've last written anything so I figured it was time
+for a status update.
+
+At this point in time I think I've become fairly proficient with Ruby. I've read
+a few books now ([The Well-Grounded Rubyist][well-grounded],
+[Eloquent Ruby][eloquent], [The RSpec Book][rspec]) and I feel that I can dive
+into projects and find my way around without getting completely lost in the process.
+Case and point, I recently finished up another iteration of my, aherm, passion
+project [Go To Bell][gotobell].
+
+It also helps, though, that Go To Bell is pretty simple project (for now
+at least). It just scrapes Taco Bell's menu, stores it, and presents random
+combinations of the newly stored menu data. There aren't a ton of moving parts
+either. I used Postgres, [Sequel][sequel], [Padrino][padrino], Nokogiri, RSpec,
+[Susy][susy], Haml and Sass. Simple, nothing truly groundbreaking.
+
+What made it a challenge, though, was that it was a complete web app from
+start to finish where I tried to use some libraries that would be a little
+bit less 'batteries included'. Not to say I'm a hardcore programmer who uses
+only magnets to get his work done, but I'm somewhat proud that I was able to
+work with some Ruby libraries that were less ubiquitous than Rails yet still
+figure it out. I feel like that's the essential experience of being a
+programmer; being able to take a few things you know only a little about, some
+documentation (or sometimes just the source), time, and effort and be able to
+magically combine them all into something useful (or something that's maybe not
+really that useful, but fun nonetheless).
+
+Not to mention, I picked up some JavaScript along the way (although the app uses
+very little and its mostly just jQuery). Since I hate using a language when I
+know nothing about it, I went through a few JavaScript books too
+([Javascript: The Good Parts][good-parts],
+[Professional JavaScript For Web Developers][pro-js],
+[Maintainable JavaScript][maintainable]). I'm less in the know when it comes to
+the JavaScript world than I am with the Ruby one, but I also feel way more
+confident with it than I was before. Enough so that I can appreciate its
+strengths while also avoiding some of its pitfalls.
+
+Anyway, if you've read this far then chances are you've come for a red panda gif.
+Since I'd hate to be a disappointment...
+
+![red panda pumpkin](/blog/2013/10/22-whats-goin-on/red-panda-pumpkin.gif "Take that pumpkin down a notch")
+
+[well-grounded]: http://www.amazon.com/The-Well-Grounded-Rubyist-David-Black/dp/1933988657/
+[eloquent]: http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104/
+[rspec]: http://www.amazon.com/The-RSpec-Book-Behaviour-Development/dp/1934356379/
+[good-parts]: http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742/
+[pro-js]: http://www.amazon.com/Professional-JavaScript-Developers-Nicholas-Zakas/dp/1118026691/
+[maintainable]: http://www.amazon.com/Maintainable-JavaScript-Nicholas-C-Zakas/dp/1449327680/
+[gotobell]: https://gotobell.herokuapp.com/
+[sequel]: http://sequel.rubyforge.org/
+[padrino]: http://www.padrinorb.com/
+[susy]: http://susy.oddbird.net/
