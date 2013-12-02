@@ -1,5 +1,6 @@
-%h3= link_to article.title, article
-= partial 'partials/blog_stamp', locals: { date: article.date }
+%header
+  %h3= link_to article.title, article
+  = partial 'partials/blog_stamp', locals: { date: article.date }
 - if full ||= false
   = article.body
 - else

@@ -132,7 +132,7 @@ html, body, .wrapper {
 
   .head { @include span-columns(12 omega, 12); }
 
-  nav { @include span-columns(2, 12); }
+  .sidenav { @include span-columns(2, 12); }
 
   main {
     @include span-columns(8 omega, 12);
