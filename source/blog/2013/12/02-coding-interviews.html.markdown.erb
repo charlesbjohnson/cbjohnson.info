@@ -1,0 +1,71 @@
+---
+title: Coding interviews
+date: 2013-12-02 07:16 EST
+preview: And how to crack them
+---
+Technical interviews are rough. It's great when you do well (or at least
+when you think you do) but more often than not I have a hard time with them.
+Having to sit in a room and take an exam with one or more people
+staring you down just isn't a very enjoyable experience. Even
+when you know all the answers, it still sucks.
+
+I spent a spent a very long amount of time trying to figure out what the secret
+was to getting better at interviews. At first I thought that I didn't perform
+well at technical questions because I missed out on learning CS fundamentals.
+So I went through [Algorithms I](https://www.coursera.org/course/algs4partI) on
+Coursera. Although I didn't do every single piece of content made available in
+the course, I did watch and rewatch every video from the series and implemented
+a majority of the algorithms and data structures I learned about. The course
+was great but by the end of it all it felt like it was just a big refresher.
+In other words, it meant that I probably wasn't missing some fundamental
+portion of CS knowledge I needed for interviews.
+
+So if it wasn't my education to blame for my inadequacy at technical questions,
+then does that mean I'm just stupid? Not exactly (I hope!). After taking the
+refresher course, I then looked to interview prep books.
+[Cracking the Coding Interview][cci-book], in particular. I thought that
+maybe there was a technique to solving these kinds of problems that I was
+completely unaware of. So I went through the book and started answering the
+questions. I made a [repo][cci-repo] dedicated to the whole process. It was
+all done in Ruby and there are tests and everything (530 of them). I haven't
+done every single problem but I have done quite a lot of them.
+
+I've done enough problems to conclude that it's all pretty bogus. For some
+questions there is a definite pattern. There are some 'tricks' you end up using
+to solve more than one problem. But they are pretty insignificant. At the start
+of each chapter the author outlines a general technique that you should
+use to solve the class of problems contained in the chapter, whether it be
+about dynamic programming, something about linked lists, or whatever else.
+More often than not, though, the advice is just too vague or generic to be useful.
+
+Take the chapter on Mathematics and Probability, for example. The intro talks
+about how all numbers can be decomposed into products of primes, how you can
+check if a number is prime, and some stuff about probability. All useful stuff
+in their own right. But useful for solving the problems? Not a chance. I
+honestly couldn't figure out the solutions to several problems in that chapter.
+But that wasn't even the disappointing part. The disappointing part came when
+I finally gave in and reached for a clue from the solutions only to find that
+there are no clues. There's no particularly useful insight into solving the
+problem. It just feels like you either know nothing about how to solve the
+problem or you know exactly how to do it. There's no middle ground. And it's
+not that the solutions are incomprehensible, either. It's that I can't see how
+you could ever deduce the solution without already knowing it ahead of time.
+
+So the secret to technical questions like these is that there is no secret.
+Some techniques lend themselves to solving certain problems but, more often
+than not, your ability to solve a problem is best predicted by the number of
+other similarly arbitrary problems you've already solved.
+
+Who knows. Maybe there are people who can take one look at these kinds of
+problems, even in an interview setting when they've never seen anything
+similar before, and manage to formulate a solution out of nothing. Maybe
+there is a framework to solving these problems that I still haven't figured
+out. If there is then I'd love to hear about it. If you are like me, though,
+then you are better off just practicing. Don't waste time and effort doubting
+your ability. Have some confidence in yourself and just work the problems out
+as best as you can. That's how you can 'crack the coding interview'.
+
+![red panda practicing](<%= blog_image 'red-panda-practicing.gif' %> "Always be practicing")
+
+[cci-book]: http://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/098478280X)
+[cci-repo]: https://github.com/charlesbjohnson/cracking_the_coding_interview
