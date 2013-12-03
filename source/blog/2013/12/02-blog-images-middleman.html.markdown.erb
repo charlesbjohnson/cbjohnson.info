@@ -12,7 +12,7 @@ been using it since I started this project and it has been fine. Though there
 are a ton of features in middleman-blog that I'm not even using, there is one
 in particular that has been absolutely vital. Without it there wouldn't be any
 fantastic red panda gifs to leisurely view. I'm referring to [article
-subdirectories][subdirs] of course.
+subdirectories][subdirs], of course.
 
 Article subdirectories allow me to group my red panda images with the blog
 post that they debut in. Obviously, this 'everything in its place' approach is
@@ -29,12 +29,10 @@ it doesn't work well with another feature of Middleman,
 [does][dir_index_warn] not [work][dir_index_issue] with relative links. So you
 end up having to use absolute links anyway. To compensate for this shortcoming,
 I process my markdown blog posts in ERB first so that I can also use a simple
-little helper method which gets the absolute file path of an image I want to
-use. It looks like this (<code>helpers/blog\_image\_helpers.rb</code>)
+little helper method which gets the absolute file path of the image I want to
+use. It looks like this (<code>helpers/blog\_image\_helpers.rb</code>):
 
 ```ruby
-require 'find'
-
 module BlogImageHelpers
 
   def blog_image(image)
@@ -47,7 +45,7 @@ module BlogImageHelpers
 end
 ```
 
-Pretty simple. When coupled with a markdown link like this:
+Pretty simple. When used in a markdown link like this:
 
 ```erb
 ![some image](<%%= blog_image 'image.gif' %> "wow a gif")
@@ -74,7 +72,7 @@ however, were totally fine.
 
 I haven't been able to look into Middleman's source to see what it's trying to
 do here, but my guess is that this is a bug. Even though we give an absolute
-URL to an image in our markdown article, Middleman still builds it as a
+URL to an image link in our markdown article, Middleman still builds it as a
 relative link. So the image link in the markdown I previously mentioned would
 actually be built as:
 
@@ -97,15 +95,16 @@ configure :build do
 end
 ```
 
-With that change, my links were processed absolutely and built as:
+With that change, my links became absolute when Middleman built them. Like so:
 
 ```html
 <img title="wow a gif" alt="some image" src="/blog/2013/12/some-post/image.gif">
 ```
 
-Afterwards, make sure any other assets are using absolute paths. So for me that
-meant making sure my application stylesheet and javascript from my default
-layout (<code>source/layouts/layout.rb</code>) needed to become:
+Afterwards, make sure any other assets that were using relative links are now
+set up to use absolute ones. So for me that meant making sure my application
+stylesheet and javascript from my default layout were absolute links.
+They needed to become (<code>source/layouts/layout.rb</code>):
 
 ```haml
 %head
