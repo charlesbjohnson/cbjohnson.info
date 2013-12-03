@@ -7,6 +7,11 @@ $green-fg:  #36B06A;
 $blue-fg:   #44B5B2;
 $purple-fg: #8776B8;
 
+$code-bg: #131313;
+$code-fg: #F8F8F2;
+
+$code-gutter-bg: #474747;
+
 
 // MIXINS
 @mixin colorize-link($color, $amount: 10%) {

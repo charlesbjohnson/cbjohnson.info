@@ -39,8 +39,9 @@ h4 { font-size: 1.3rem; }
 h5 { font-size: 1.25rem; }
 
 code {
-  color: #f8f8f2;
-  background-color: #131313;
+  color: $code-fg;
+  background-color: $code-bg;
+  border: 2px solid $code-gutter-bg;
   font-size: 1rem;
 }
 
@@ -178,6 +179,8 @@ html, body, .wrapper {
   h3 { font-size: 1.25rem; }
 
   p { font-size: 1rem; }
+
+  code { font-size: 0.9rem; }
 
   pre.highlight { font-size: 0.4rem; }
 
