@@ -59,7 +59,7 @@
               are a ton of features in middleman-blog that I&rsquo;m not even using, there is one
               in particular that has been absolutely vital. Without it there wouldn&rsquo;t be any
               fantastic red panda gifs to leisurely view. I&rsquo;m referring to <a href="http://middlemanapp.com/basics/blogging/#toc_14">article
-              subdirectories</a> of course.</p>
+              subdirectories</a>, of course.</p>
               
               <p>Article subdirectories allow me to group my red panda images with the blog
               post that they debut in. Obviously, this &lsquo;everything in its place&rsquo; approach is
@@ -76,10 +76,10 @@
               <a href="http://middlemanapp.com/basics/pretty-urls/#toc_1">does</a> not <a href="https://github.com/middleman/middleman/issues/818">work</a> with relative links. So you
               end up having to use absolute links anyway. To compensate for this shortcoming,
               I process my markdown blog posts in ERB first so that I can also use a simple
-              little helper method which gets the absolute file path of an image I want to
-              use. It looks like this (<code>helpers/blog_image_helpers.rb</code>)</p>
-              <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div></td><td class="code"><span class="nb">require</span> <span class="s1">&#39;find&#39;</span>&#x000A;&#x000A;<span class="k">module</span> <span class="nn">BlogImageHelpers</span>&#x000A;&#x000A;  <span class="k">def </span><span class="nf">blog_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>&#x000A;    <span class="n">images</span> <span class="o">=</span> <span class="no">Find</span><span class="nf">.find</span><span class="p">(</span><span class="s1">&#39;source/blog&#39;</span><span class="p">)</span><span class="nf">.grep</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">image</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>&#x000A;    <span class="k">return</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">images</span><span class="nf">.empty?</span>&#x000A;&#x000A;    <span class="n">images</span><span class="nf">.first</span><span class="o">[</span><span class="sr">/\/blog.+/</span><span class="o">]</span>&#x000A;  <span class="k">end</span>&#x000A;&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
-              <p>Pretty simple. When coupled with a markdown link like this:</p>
+              little helper method which gets the absolute file path of the image I want to
+              use. It looks like this (<code>helpers/blog_image_helpers.rb</code>):</p>
+              <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div></td><td class="code"><span class="k">module</span> <span class="nn">BlogImageHelpers</span>&#x000A;&#x000A;  <span class="k">def </span><span class="nf">blog_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>&#x000A;    <span class="n">images</span> <span class="o">=</span> <span class="no">Find</span><span class="nf">.find</span><span class="p">(</span><span class="s1">&#39;source/blog&#39;</span><span class="p">)</span><span class="nf">.grep</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">image</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>&#x000A;    <span class="k">return</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">images</span><span class="nf">.empty?</span>&#x000A;&#x000A;    <span class="n">images</span><span class="nf">.first</span><span class="o">[</span><span class="sr">/\/blog.+/</span><span class="o">]</span>&#x000A;  <span class="k">end</span>&#x000A;&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
+              <p>Pretty simple. When used in a markdown link like this:</p>
               <pre class="highlight erb"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code">![some image](<span class="cp">&lt;%=</span> <span class="n">blog_image</span> <span class="s1">&#39;image.gif&#39;</span> <span class="cp">%&gt;</span> &quot;wow a gif&quot;)&#x000A;</td></tr></tbody></table></pre>
               <p>It produces:</p>
               <pre class="highlight markdown"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="p">![</span><span class="nv">some image</span><span class="p">](</span><span class="sx">/blog/2013/12/02-some-post/image.gif</span> <span class="nn">&quot;wow a gif&quot;</span><span class="p">)</span>&#x000A;</td></tr></tbody></table></pre>
@@ -98,7 +98,7 @@
               
               <p>I haven&rsquo;t been able to look into Middleman&rsquo;s source to see what it&rsquo;s trying to
               do here, but my guess is that this is a bug. Even though we give an absolute
-              URL to an image in our markdown article, Middleman still builds it as a
+              URL to an image link in our markdown article, Middleman still builds it as a
               relative link. So the image link in the markdown I previously mentioned would
               actually be built as:</p>
               <pre class="highlight html"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">&quot;wow a gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;some image&quot;</span> <span class="na">src=</span><span class="s">&quot;image.gif&quot;</span><span class="nt">&gt;</span>&#x000A;</td></tr></tbody></table></pre>
@@ -109,11 +109,12 @@
               <p>Fortunately, there is a simple fix. Disable <code>relative_assets</code> in
               your <code>config.rb</code>.</p>
               <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="c1"># Build-specific configuration</span>&#x000A;<span class="n">configure</span> <span class="ss">:build</span> <span class="k">do</span>&#x000A;  <span class="c1"># Use relative URLs</span>&#x000A;  <span class="c1">#activate :relative_assets</span>&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
-              <p>With that change, my links were processed absolutely and built as:</p>
+              <p>With that change, my links became absolute when Middleman built them. Like so:</p>
               <pre class="highlight html"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">&quot;wow a gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;some image&quot;</span> <span class="na">src=</span><span class="s">&quot;/blog/2013/12/some-post/image.gif&quot;</span><span class="nt">&gt;</span>&#x000A;</td></tr></tbody></table></pre>
-              <p>Afterwards, make sure any other assets are using absolute paths. So for me that
-              meant making sure my application stylesheet and javascript from my default
-              layout (<code>source/layouts/layout.rb</code>) needed to become:</p>
+              <p>Afterwards, make sure any other assets that were using relative links are now
+              set up to use absolute ones. So for me that meant making sure my application
+              stylesheet and javascript from my default layout were absolute links.
+              They needed to become (<code>source/layouts/layout.rb</code>):</p>
               <pre class="highlight haml"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="nt">%head</span>&#x000A;  ...&#x000A;  <span class="p">=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">&#39;/stylesheets/application&#39;</span>&#x000A;  <span class="p">=</span> <span class="n">javascript_include_tag</span> <span class="s1">&#39;/javascripts/application&#39;</span>&#x000A;  ...&#x000A;</td></tr></tbody></table></pre>
               <p>And that&rsquo;s it! Now I&rsquo;ve got images working across the blog. Glorious red panda
               filled images everywhere. Interspersed with wondrous code snippets.</p>
