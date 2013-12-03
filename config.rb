@@ -42,6 +42,11 @@ activate :blog do |blog|
   # blog.default_extension = ".markdown"
 end
 
+set :markdown_engine, :redcarpet
+set :markdown, fenced_code_blocks: true, smartypants: true
+
+activate :syntax, line_numbers: true
+
 
 # page "/feed.xml", :layout => false
 
