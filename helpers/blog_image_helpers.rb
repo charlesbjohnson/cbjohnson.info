@@ -1,10 +1,10 @@
-require 'find'
-
 module BlogImageHelpers
 
   def blog_image(image)
-    blog_files = Find.find(File.expand_path('blog', 'source')).to_a
-    blog_files.grep(/#{image}/).first[/\/blog.+/]
+    images = Find.find('source/blog').grep(/#{image}/)
+    return '' if images.empty?
+
+    images.first[/\/blog.+/]
   end
 
 end

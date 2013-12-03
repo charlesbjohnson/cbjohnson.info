@@ -24,18 +24,25 @@ h2 {
   margin-top: 0;
 }
 
-h3, h4, h5 { font-weight: bold; }
+h3, h4, h5 {
+  font-weight: bold;
+  margin: 0;
+}
 
 h3 {
   color: $red-fg;
   font-size: 1.75rem;
-  margin: 0;
-  margin-bottom: 0.8rem;
 }
 
 h4 { font-size: 1.3rem; }
 
 h5 { font-size: 1.25rem; }
+
+code {
+  color: #f8f8f2;
+  background-color: #131313;
+  font-size: 1rem;
+}
 
 .footer {
   @extend .lower;
@@ -54,8 +61,6 @@ a {
 p {
   font-size: 1.2rem;
   line-height: 1.6;
-  margin: 0;
-  margin-bottom: 5%;
 }
 
 small { font-size: 0.8rem; }
