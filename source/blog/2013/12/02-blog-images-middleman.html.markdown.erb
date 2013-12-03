@@ -1,0 +1,125 @@
+---
+title: Blogging and using images with Middleman
+date: 2013-12-02 18:14 EST
+preview: Simple, yet surprisingly frustrating. Bonus code snippet formatting!
+---
+So I've just wrapped up setting up code formatting for this blog and to put
+it to the test I've decided I would write about something that has been an
+ongoing problem with this project, until now. That topic is... Blog images!
+
+Middleman has a [blogging][mm-blog] module that is great. I've
+been using it since I started this project and it has been fine. Though there
+are a ton of features in middleman-blog that I'm not even using, there is one
+in particular that has been absolutely vital. Without it there wouldn't be any
+fantastic red panda gifs to leisurely view. I'm referring to [article
+subdirectories][subdirs] of course.
+
+Article subdirectories allow me to group my red panda images with the blog
+post that they debut in. Obviously, this 'everything in its place' approach is
+extremely appealing to my OCD nature. On a more serious note, though, it also
+allows for relative links to the image (or file). This is very useful since
+it is tedious having to write out the entire absolute path for an image. In
+addition, if one day I decide I need multiple images for a single post
+then having to write out each absolute path will also lead to redundancy.
+
+The problem with article subdirectories and relative links, however, is that
+it doesn't work well with another feature of Middleman,
+[directory indexes][dir_index]. Directory indexes allow for cruft-free URLs
+(which is also a must-have feature for the obsessive). As I already mentioned, it
+[does][dir_index_warn] not [work][dir_index_issue] with relative links. So you
+end up having to use absolute links anyway. To compensate for this shortcoming,
+I process my markdown blog posts in ERB first so that I can also use a simple
+little helper method which gets the absolute file path of an image I want to
+use. It looks like this (<code>helpers/blog\_image\_helpers.rb</code>)
+
+```ruby
+require 'find'
+
+module BlogImageHelpers
+
+  def blog_image(image)
+    images = Find.find('source/blog').grep(/#{image}/)
+    return '' if images.empty?
+
+    images.first[/\/blog.+/]
+  end
+
+end
+```
+
+Pretty simple. When coupled with a markdown link like this:
+
+```erb
+![some image](<%%= blog_image 'image.gif' %> "wow a gif")
+```
+
+It produces:
+
+```markdown
+![some image](/blog/2013/12/02-some-post/image.gif "wow a gif")
+```
+
+And that's good enough for Middleman to figure out the rest.
+
+#### But wait! There are more problems!
+
+If you end up trying something similar to my own blog where you have individual
+blog posts as well as an index of blog posts, you will run into another
+problem. Middleman can't link to an image that is sitting in an article
+subdirectory from a page that is NOT that blog post. In my case, that meant that
+links to images on my blog index (at <code>/blog</code>) were incorrect.
+Links to images from a specific blog post
+(like <code>/blog/2013/12/some-post</code>) where that image actually appears,
+however, were totally fine.
+
+I haven't been able to look into Middleman's source to see what it's trying to
+do here, but my guess is that this is a bug. Even though we give an absolute
+URL to an image in our markdown article, Middleman still builds it as a
+relative link. So the image link in the markdown I previously mentioned would
+actually be built as:
+
+```html
+<img title="wow a gif" alt="some image" src="image.gif">
+```
+
+No absolute path anywhere in sight! Where did it go!?! This may work for the
+actual blog post page at <code>/blog/2013/12/some-post</code>, but it
+definitely doesn't work for the blog index page at <code>/blog</code>.
+
+Fortunately, there is a simple fix. Disable <code>relative_assets</code> in
+your <code>config.rb</code>.
+
+```ruby
+# Build-specific configuration
+configure :build do
+  # Use relative URLs
+  #activate :relative_assets
+end
+```
+
+With that change, my links were processed absolutely and built as:
+
+```html
+<img title="wow a gif" alt="some image" src="/blog/2013/12/some-post/image.gif">
+```
+
+Afterwards, make sure any other assets are using absolute paths. So for me that
+meant making sure my application stylesheet and javascript from my default
+layout (<code>source/layouts/layout.rb</code>) needed to become:
+
+```haml
+%head
+  ...
+  = stylesheet_link_tag '/stylesheets/application'
+  = javascript_include_tag '/javascripts/application'
+  ...
+```
+
+And that's it! Now I've got images working across the blog. Glorious red panda
+filled images everywhere. Interspersed with wondrous code snippets.
+
+[mm-blog]: http://middlemanapp.com/basics/blogging/
+[subdirs]: http://middlemanapp.com/basics/blogging/#toc_14
+[dir_index]: http://middlemanapp.com/basics/pretty-urls/
+[dir_index_warn]: http://middlemanapp.com/basics/pretty-urls/#toc_1
+[dir_index_issue]: https://github.com/middleman/middleman/issues/818
