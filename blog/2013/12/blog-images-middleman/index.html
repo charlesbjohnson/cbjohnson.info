@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+    <title>blogging and using images with middleman | blog | cbjohnson</title>
+    <link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/application.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <div class='container'>
+        <header class='head'>
+          <h1><a href="/">cbjohnson</a></h1>
+        </header>
+        <aside class='sidenav'>
+          <nav>
+            <ul>
+              <div class='menu'>
+                <li>
+                  <a href="/">Info</a>
+                </li>
+                <li class='active'>
+                  <a href="/blog/">Blog</a>
+                </li>
+                <li>
+                  <a href="/blog/archive/">Archive</a>
+                </li>
+                <li>
+                  <a href="/contact/">Contact</a>
+                </li>
+              </div>
+              <div class='social'>
+                <li><a href="https://twitter.com/charbajo">@charbajo</a></li>
+                <li><a href="https://github.com/charlesbjohnson">GitHub</a></li>
+                <li><a href="http://www.last.fm/user/cbj7777">Last.fm</a></li>
+              </div>
+            </ul>
+          </nav>
+        </aside>
+        <main>
+          <header class='head-main'>
+            <h2>Blog</h2>
+          </header>
+          <section class='content-main'>
+            <article>
+              <header>
+                <h3>Blogging and using images with Middleman</h3>
+                <p class='blog-stamp'>
+                  <time datetime='2013-12-02 18:14:00 -0500'>Dec  2, 2013</time>
+                </p>
+              </header>
+              <section>
+                <p>So I&rsquo;ve just wrapped up setting up code formatting for this blog and to put
+                it to the test I&rsquo;ve decided I would write about something that has been an
+                ongoing problem with this project, until now. That topic is&hellip; Blog images!</p>
+                
+                <p>Middleman has a <a href="http://middlemanapp.com/basics/blogging/">blogging</a> module that is great. I&rsquo;ve
+                been using it since I started this project and it has been fine. Though there
+                are a ton of features in middleman-blog that I&rsquo;m not even using, there is one
+                in particular that has been absolutely vital. Without it there wouldn&rsquo;t be any
+                fantastic red panda gifs to leisurely view. I&rsquo;m referring to <a href="http://middlemanapp.com/basics/blogging/#toc_14">article
+                subdirectories</a> of course.</p>
+                
+                <p>Article subdirectories allow me to group my red panda images with the blog
+                post that they debut in. Obviously, this &lsquo;everything in its place&rsquo; approach is
+                extremely appealing to my OCD nature. On a more serious note, though, it also
+                allows for relative links to the image (or file). This is very useful since
+                it is tedious having to write out the entire absolute path for an image. In
+                addition, if one day I decide I need multiple images for a single post
+                then having to write out each absolute path will also lead to redundancy.</p>
+                
+                <p>The problem with article subdirectories and relative links, however, is that
+                it doesn&rsquo;t work well with another feature of Middleman,
+                <a href="http://middlemanapp.com/basics/pretty-urls/">directory indexes</a>. Directory indexes allow for cruft-free URLs
+                (which is also a must-have feature for the obsessive). As I already mentioned, it
+                <a href="http://middlemanapp.com/basics/pretty-urls/#toc_1">does</a> not <a href="https://github.com/middleman/middleman/issues/818">work</a> with relative links. So you
+                end up having to use absolute links anyway. To compensate for this shortcoming,
+                I process my markdown blog posts in ERB first so that I can also use a simple
+                little helper method which gets the absolute file path of an image I want to
+                use. It looks like this (<code>helpers/blog_image_helpers.rb</code>)</p>
+                <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div></td><td class="code"><span class="nb">require</span> <span class="s1">&#39;find&#39;</span>&#x000A;&#x000A;<span class="k">module</span> <span class="nn">BlogImageHelpers</span>&#x000A;&#x000A;  <span class="k">def </span><span class="nf">blog_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>&#x000A;    <span class="n">images</span> <span class="o">=</span> <span class="no">Find</span><span class="nf">.find</span><span class="p">(</span><span class="s1">&#39;source/blog&#39;</span><span class="p">)</span><span class="nf">.grep</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">image</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>&#x000A;    <span class="k">return</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">images</span><span class="nf">.empty?</span>&#x000A;&#x000A;    <span class="n">images</span><span class="nf">.first</span><span class="o">[</span><span class="sr">/\/blog.+/</span><span class="o">]</span>&#x000A;  <span class="k">end</span>&#x000A;&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
+                <p>Pretty simple. When coupled with a markdown link like this:</p>
+                <pre class="highlight erb"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code">![some image](<span class="cp">&lt;%=</span> <span class="n">blog_image</span> <span class="s1">&#39;image.gif&#39;</span> <span class="cp">%&gt;</span> &quot;wow a gif&quot;)&#x000A;</td></tr></tbody></table></pre>
+                <p>It produces:</p>
+                <pre class="highlight markdown"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="p">![</span><span class="nv">some image</span><span class="p">](</span><span class="sx">/blog/2013/12/02-some-post/image.gif</span> <span class="nn">&quot;wow a gif&quot;</span><span class="p">)</span>&#x000A;</td></tr></tbody></table></pre>
+                <p>And that&rsquo;s good enough for Middleman to figure out the rest.</p>
+                
+                <h4>But wait! There are more problems!</h4>
+                
+                <p>If you end up trying something similar to my own blog where you have individual
+                blog posts as well as an index of blog posts, you will run into another
+                problem. Middleman can&rsquo;t link to an image that is sitting in an article
+                subdirectory from a page that is NOT that blog post. In my case, that meant that
+                links to images on my blog index (at <code>/blog</code>) were incorrect.
+                Links to images from a specific blog post
+                (like <code>/blog/2013/12/some-post</code>) where that image actually appears,
+                however, were totally fine.</p>
+                
+                <p>I haven&rsquo;t been able to look into Middleman&rsquo;s source to see what it&rsquo;s trying to
+                do here, but my guess is that this is a bug. Even though we give an absolute
+                URL to an image in our markdown article, Middleman still builds it as a
+                relative link. So the image link in the markdown I previously mentioned would
+                actually be built as:</p>
+                <pre class="highlight html"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">&quot;wow a gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;some image&quot;</span> <span class="na">src=</span><span class="s">&quot;image.gif&quot;</span><span class="nt">&gt;</span>&#x000A;</td></tr></tbody></table></pre>
+                <p>No absolute path anywhere in sight! Where did it go!?! This may work for the
+                actual blog post page at <code>/blog/2013/12/some-post</code>, but it
+                definitely doesn&rsquo;t work for the blog index page at <code>/blog</code>.</p>
+                
+                <p>Fortunately, there is a simple fix. Disable <code>relative_assets</code> in
+                your <code>config.rb</code>.</p>
+                <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="c1"># Build-specific configuration</span>&#x000A;<span class="n">configure</span> <span class="ss">:build</span> <span class="k">do</span>&#x000A;  <span class="c1"># Use relative URLs</span>&#x000A;  <span class="c1">#activate :relative_assets</span>&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
+                <p>With that change, my links were processed absolutely and built as:</p>
+                <pre class="highlight html"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">&quot;wow a gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;some image&quot;</span> <span class="na">src=</span><span class="s">&quot;/blog/2013/12/some-post/image.gif&quot;</span><span class="nt">&gt;</span>&#x000A;</td></tr></tbody></table></pre>
+                <p>Afterwards, make sure any other assets are using absolute paths. So for me that
+                meant making sure my application stylesheet and javascript from my default
+                layout (<code>source/layouts/layout.rb</code>) needed to become:</p>
+                <pre class="highlight haml"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="nt">%head</span>&#x000A;  ...&#x000A;  <span class="p">=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">&#39;/stylesheets/application&#39;</span>&#x000A;  <span class="p">=</span> <span class="n">javascript_include_tag</span> <span class="s1">&#39;/javascripts/application&#39;</span>&#x000A;  ...&#x000A;</td></tr></tbody></table></pre>
+                <p>And that&rsquo;s it! Now I&rsquo;ve got images working across the blog. Glorious red panda
+                filled images everywhere. Interspersed with wondrous code snippets.</p>
+              </section>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+    <footer class='footer'>
+      <p>
+        <small>
+          © 2013 Charles B Johnson. Made with
+          <a href="http://middlemanapp.com/">Middleman</a>
+          and
+          <a href="https://github.com/charlesbjohnson/cbjohnson.info">GitHub</a>.
+        </small>
+      </p>
+    </footer>
+  </body>
+</html>
+

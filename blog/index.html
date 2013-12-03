@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang='en-us'>
   <head>
     <meta charset='utf-8'>
-    <meta content='width=device-width' name='viewport'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
     <title>blog | cbjohnson</title>
     <link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
     <script src="/javascripts/application.js" type="text/javascript"></script>
@@ -45,40 +45,115 @@
           <section class='content-main'>
             <article class='post-article'>
               <header>
+                <h3><a href="/blog/2013/12/blog-images-middleman/">Blogging and using images with Middleman</a></h3>
+                <p class='blog-stamp'>
+                  <time datetime='2013-12-02 18:14:00 -0500'>Dec  2, 2013</time>
+                </p>
+              </header>
+              <p>So I&rsquo;ve just wrapped up setting up code formatting for this blog and to put
+              it to the test I&rsquo;ve decided I would write about something that has been an
+              ongoing problem with this project, until now. That topic is&hellip; Blog images!</p>
+              
+              <p>Middleman has a <a href="http://middlemanapp.com/basics/blogging/">blogging</a> module that is great. I&rsquo;ve
+              been using it since I started this project and it has been fine. Though there
+              are a ton of features in middleman-blog that I&rsquo;m not even using, there is one
+              in particular that has been absolutely vital. Without it there wouldn&rsquo;t be any
+              fantastic red panda gifs to leisurely view. I&rsquo;m referring to <a href="http://middlemanapp.com/basics/blogging/#toc_14">article
+              subdirectories</a> of course.</p>
+              
+              <p>Article subdirectories allow me to group my red panda images with the blog
+              post that they debut in. Obviously, this &lsquo;everything in its place&rsquo; approach is
+              extremely appealing to my OCD nature. On a more serious note, though, it also
+              allows for relative links to the image (or file). This is very useful since
+              it is tedious having to write out the entire absolute path for an image. In
+              addition, if one day I decide I need multiple images for a single post
+              then having to write out each absolute path will also lead to redundancy.</p>
+              
+              <p>The problem with article subdirectories and relative links, however, is that
+              it doesn&rsquo;t work well with another feature of Middleman,
+              <a href="http://middlemanapp.com/basics/pretty-urls/">directory indexes</a>. Directory indexes allow for cruft-free URLs
+              (which is also a must-have feature for the obsessive). As I already mentioned, it
+              <a href="http://middlemanapp.com/basics/pretty-urls/#toc_1">does</a> not <a href="https://github.com/middleman/middleman/issues/818">work</a> with relative links. So you
+              end up having to use absolute links anyway. To compensate for this shortcoming,
+              I process my markdown blog posts in ERB first so that I can also use a simple
+              little helper method which gets the absolute file path of an image I want to
+              use. It looks like this (<code>helpers/blog_image_helpers.rb</code>)</p>
+              <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div><div class="lineno">6</div><div class="lineno">7</div><div class="lineno">8</div><div class="lineno">9</div><div class="lineno">10</div><div class="lineno">11</div><div class="lineno">12</div></td><td class="code"><span class="nb">require</span> <span class="s1">&#39;find&#39;</span>&#x000A;&#x000A;<span class="k">module</span> <span class="nn">BlogImageHelpers</span>&#x000A;&#x000A;  <span class="k">def </span><span class="nf">blog_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>&#x000A;    <span class="n">images</span> <span class="o">=</span> <span class="no">Find</span><span class="nf">.find</span><span class="p">(</span><span class="s1">&#39;source/blog&#39;</span><span class="p">)</span><span class="nf">.grep</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">image</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>&#x000A;    <span class="k">return</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">images</span><span class="nf">.empty?</span>&#x000A;&#x000A;    <span class="n">images</span><span class="nf">.first</span><span class="o">[</span><span class="sr">/\/blog.+/</span><span class="o">]</span>&#x000A;  <span class="k">end</span>&#x000A;&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
+              <p>Pretty simple. When coupled with a markdown link like this:</p>
+              <pre class="highlight erb"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code">![some image](<span class="cp">&lt;%=</span> <span class="n">blog_image</span> <span class="s1">&#39;image.gif&#39;</span> <span class="cp">%&gt;</span> &quot;wow a gif&quot;)&#x000A;</td></tr></tbody></table></pre>
+              <p>It produces:</p>
+              <pre class="highlight markdown"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="p">![</span><span class="nv">some image</span><span class="p">](</span><span class="sx">/blog/2013/12/02-some-post/image.gif</span> <span class="nn">&quot;wow a gif&quot;</span><span class="p">)</span>&#x000A;</td></tr></tbody></table></pre>
+              <p>And that&rsquo;s good enough for Middleman to figure out the rest.</p>
+              
+              <h4>But wait! There are more problems!</h4>
+              
+              <p>If you end up trying something similar to my own blog where you have individual
+              blog posts as well as an index of blog posts, you will run into another
+              problem. Middleman can&rsquo;t link to an image that is sitting in an article
+              subdirectory from a page that is NOT that blog post. In my case, that meant that
+              links to images on my blog index (at <code>/blog</code>) were incorrect.
+              Links to images from a specific blog post
+              (like <code>/blog/2013/12/some-post</code>) where that image actually appears,
+              however, were totally fine.</p>
+              
+              <p>I haven&rsquo;t been able to look into Middleman&rsquo;s source to see what it&rsquo;s trying to
+              do here, but my guess is that this is a bug. Even though we give an absolute
+              URL to an image in our markdown article, Middleman still builds it as a
+              relative link. So the image link in the markdown I previously mentioned would
+              actually be built as:</p>
+              <pre class="highlight html"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">&quot;wow a gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;some image&quot;</span> <span class="na">src=</span><span class="s">&quot;image.gif&quot;</span><span class="nt">&gt;</span>&#x000A;</td></tr></tbody></table></pre>
+              <p>No absolute path anywhere in sight! Where did it go!?! This may work for the
+              actual blog post page at <code>/blog/2013/12/some-post</code>, but it
+              definitely doesn&rsquo;t work for the blog index page at <code>/blog</code>.</p>
+              
+              <p>Fortunately, there is a simple fix. Disable <code>relative_assets</code> in
+              your <code>config.rb</code>.</p>
+              <pre class="highlight ruby"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="c1"># Build-specific configuration</span>&#x000A;<span class="n">configure</span> <span class="ss">:build</span> <span class="k">do</span>&#x000A;  <span class="c1"># Use relative URLs</span>&#x000A;  <span class="c1">#activate :relative_assets</span>&#x000A;<span class="k">end</span>&#x000A;</td></tr></tbody></table></pre>
+              <p>With that change, my links were processed absolutely and built as:</p>
+              <pre class="highlight html"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div></td><td class="code"><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">&quot;wow a gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;some image&quot;</span> <span class="na">src=</span><span class="s">&quot;/blog/2013/12/some-post/image.gif&quot;</span><span class="nt">&gt;</span>&#x000A;</td></tr></tbody></table></pre>
+              <p>Afterwards, make sure any other assets are using absolute paths. So for me that
+              meant making sure my application stylesheet and javascript from my default
+              layout (<code>source/layouts/layout.rb</code>) needed to become:</p>
+              <pre class="highlight haml"><table><tbody><tr><td class="gutter gl"><div class="lineno">1</div><div class="lineno">2</div><div class="lineno">3</div><div class="lineno">4</div><div class="lineno">5</div></td><td class="code"><span class="nt">%head</span>&#x000A;  ...&#x000A;  <span class="p">=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">&#39;/stylesheets/application&#39;</span>&#x000A;  <span class="p">=</span> <span class="n">javascript_include_tag</span> <span class="s1">&#39;/javascripts/application&#39;</span>&#x000A;  ...&#x000A;</td></tr></tbody></table></pre>
+              <p>And that&rsquo;s it! Now I&rsquo;ve got images working across the blog. Glorious red panda
+              filled images everywhere. Interspersed with wondrous code snippets.</p>
+            </article>
+            <article class='post-article'>
+              <header>
                 <h3><a href="/blog/2013/12/coding-interviews/">Coding interviews</a></h3>
                 <p class='blog-stamp'>
                   <time datetime='2013-12-02 07:16:00 -0500'>Dec  2, 2013</time>
                 </p>
               </header>
-              <p>Technical interviews are rough. It's great when you do well (or at least
+              <p>Technical interviews are rough. It&rsquo;s great when you do well (or at least
               when you think you do) but more often than not I have a hard time with them.
               Having to sit in a room and take an exam with one or more people
-              staring you down just isn't a very enjoyable experience. Even
+              staring you down just isn&rsquo;t a very enjoyable experience. Even
               when you know all the answers, it still sucks.</p>
               
               <p>I spent a spent a very long amount of time trying to figure out what the secret
-              was to getting better at interviews. At first I thought that I didn't perform
+              was to getting better at interviews. At first I thought that I didn&rsquo;t perform
               well at technical questions because I missed out on learning CS fundamentals.
               So I went through <a href="https://www.coursera.org/course/algs4partI">Algorithms I</a> on
-              Coursera. Although I didn't do every single piece of content made available in
+              Coursera. Although I didn&rsquo;t do every single piece of content made available in
               the course, I did watch and rewatch every video from the series and implemented
               a majority of the algorithms and data structures I learned about. The course
               was great but by the end of it all it felt like it was just a big refresher.
-              In other words, it meant that I probably wasn't missing some fundamental
+              In other words, it meant that I probably wasn&rsquo;t missing some fundamental
               portion of CS knowledge I needed for interviews.</p>
               
-              <p>So if it wasn't my education to blame for my inadequacy at technical questions,
-              then does that mean I'm just stupid? Not exactly (I hope!). After taking the
+              <p>So if it wasn&rsquo;t my education to blame for my inadequacy at technical questions,
+              then does that mean I&rsquo;m just stupid? Not exactly (I hope!). After taking the
               refresher course, I then looked to interview prep books.
               <a href="http://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/098478280X)">Cracking the Coding Interview</a>, in particular. I thought that
               maybe there was a technique to solving these kinds of problems that I was
               completely unaware of. So I went through the book and started answering the
               questions. I made a <a href="https://github.com/charlesbjohnson/cracking_the_coding_interview">repo</a> dedicated to the whole process. It was
-              all done in Ruby and there are tests and everything (530 of them). I haven't
+              all done in Ruby and there are tests and everything (530 of them). I haven&rsquo;t
               done every single problem but I have done quite a lot of them.</p>
               
-              <p>I've done enough problems to conclude that it's all pretty bogus. For some
-              questions there is a definite pattern. There are some 'tricks' you end up using
+              <p>I&rsquo;ve done enough problems to conclude that it&rsquo;s all pretty bogus. For some
+              questions there is a definite pattern. There are some &lsquo;tricks&rsquo; you end up using
               to solve more than one problem. But they are pretty insignificant. At the start
               of each chapter the author outlines a general technique that you should
               use to solve the class of problems contained in the chapter, whether it be
@@ -89,30 +164,30 @@
               about how all numbers can be decomposed into products of primes, how you can
               check if a number is prime, and some stuff about probability. All useful stuff
               in their own right. But useful for solving the problems? Not a chance. I
-              honestly couldn't figure out the solutions to several problems in that chapter.
-              But that wasn't even the disappointing part. The disappointing part came when
+              honestly couldn&rsquo;t figure out the solutions to several problems in that chapter.
+              But that wasn&rsquo;t even the disappointing part. The disappointing part came when
               I finally gave in and reached for a clue from the solutions only to find that
-              there are no clues. There's no particularly useful insight into solving the
+              there are no clues. There&rsquo;s no particularly useful insight into solving the
               problem. It just feels like you either know nothing about how to solve the
-              problem or you know exactly how to do it. There's no middle ground. And it's
-              not that the solutions are incomprehensible, either. It's that I can't see how
+              problem or you know exactly how to do it. There&rsquo;s no middle ground. And it&rsquo;s
+              not that the solutions are incomprehensible, either. It&rsquo;s that I can&rsquo;t see how
               you could ever deduce the solution without already knowing it ahead of time.</p>
               
               <p>So the secret to technical questions like these is that there is no secret.
               Some techniques lend themselves to solving certain problems but, more often
               than not, your ability to solve a problem is best predicted by the number of
-              other similarly arbitrary problems you've already solved.</p>
+              other similarly arbitrary problems you&rsquo;ve already solved.</p>
               
               <p>Who knows. Maybe there are people who can take one look at these kinds of
-              problems, even in an interview setting when they've never seen anything
+              problems, even in an interview setting when they&rsquo;ve never seen anything
               similar before, and manage to formulate a solution out of nothing. Maybe
-              there is a framework to solving these problems that I still haven't figured
-              out. If there is then I'd love to hear about it. If you are like me, though,
-              then you are better off just practicing. Don't waste time and effort doubting
+              there is a framework to solving these problems that I still haven&rsquo;t figured
+              out. If there is then I&rsquo;d love to hear about it. If you are like me, though,
+              then you are better off just practicing. Don&rsquo;t waste time and effort doubting
               your ability. Have some confidence in yourself and just work the problems out
-              as best as you can. That's how you can 'crack the coding interview'.</p>
+              as best as you can. That&rsquo;s how you can &lsquo;crack the coding interview&rsquo;.</p>
               
-              <p><img alt="red panda practicing" title="Always be practicing" src="/blog/2013/12/coding-interviews/red-panda-practicing.gif" /></p>
+              <p><img title="Always be practicing" alt="red panda practicing" src="/blog/2013/12/coding-interviews/red-panda-practicing.gif" /></p>
             </article>
             <article class='post-article'>
               <header>
@@ -121,10 +196,10 @@
                   <time datetime='2013-10-22 18:59:00 -0400'>Oct 22, 2013</time>
                 </p>
               </header>
-              <p>It's been a while since I've last written anything so I figured it was time
+              <p>It&rsquo;s been a while since I&rsquo;ve last written anything so I figured it was time
               for a status update.</p>
               
-              <p>At this point in time I think I've become fairly proficient with Ruby. I've read
+              <p>At this point in time I think I&rsquo;ve become fairly proficient with Ruby. I&rsquo;ve read
               a few books now (<a href="http://www.amazon.com/The-Well-Grounded-Rubyist-David-Black/dp/1933988657/">The Well-Grounded Rubyist</a>,
               <a href="http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104/">Eloquent Ruby</a>, <a href="http://www.amazon.com/The-RSpec-Book-Behaviour-Development/dp/1934356379/">The RSpec Book</a>) and I feel that I can dive
               into projects and find my way around without getting completely lost in the process.
@@ -132,20 +207,20 @@
               project <a href="https://gotobell.herokuapp.com/">Go To Bell</a>.</p>
               
               <p>It also helps, though, that Go To Bell is pretty simple project (for now
-              at least). It just scrapes Taco Bell's menu, stores it, and presents random
-              combinations of the newly stored menu data. There aren't a ton of moving parts
+              at least). It just scrapes Taco Bell&rsquo;s menu, stores it, and presents random
+              combinations of the newly stored menu data. There aren&rsquo;t a ton of moving parts
               either. I used Postgres, <a href="http://sequel.rubyforge.org/">Sequel</a>, <a href="http://www.padrinorb.com/">Padrino</a>, Nokogiri, RSpec,
               <a href="http://susy.oddbird.net/">Susy</a>, Haml and Sass. Simple, nothing truly groundbreaking.</p>
               
               <p>What made it a challenge, though, was that it was a complete web app from
               start to finish where I tried to use some libraries that would be a little
-              bit less 'batteries included'. Not to say I'm a hardcore programmer who uses
-              only magnets to get his work done, but I'm somewhat proud that I was able to
+              bit less &lsquo;batteries included&rsquo;. Not to say I&rsquo;m a hardcore programmer who uses
+              only magnets to get his work done, but I&rsquo;m somewhat proud that I was able to
               work with some Ruby libraries that were less ubiquitous than Rails and yet still
-              figure it out. I feel like that's the essential experience of being a
+              figure it out. I feel like that&rsquo;s the essential experience of being a
               programmer; being able to take a few things you know only a little about, some
               documentation (or sometimes just the source), time, and effort and be able to
-              combine them all into something useful (or something that's maybe not
+              combine them all into something useful (or something that&rsquo;s maybe not
               really that useful, but fun nonetheless).</p>
               
               <p>Not to mention, I picked up some JavaScript along the way (although the app uses
@@ -153,49 +228,15 @@
               know nothing about it, I went through a few JavaScript books too
               (<a href="http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742/">Javascript: The Good Parts</a>,
               <a href="http://www.amazon.com/Professional-JavaScript-Developers-Nicholas-Zakas/dp/1118026691/">Professional JavaScript For Web Developers</a>,
-              <a href="http://www.amazon.com/Maintainable-JavaScript-Nicholas-C-Zakas/dp/1449327680/">Maintainable JavaScript</a>). I'm less in the know when it comes to
+              <a href="http://www.amazon.com/Maintainable-JavaScript-Nicholas-C-Zakas/dp/1449327680/">Maintainable JavaScript</a>). I&rsquo;m less in the know when it comes to
               the JavaScript world than I am with the Ruby one, but I also feel way more
               confident with it than I was before. Enough so that I can appreciate its
               strengths while also avoiding some of its pitfalls.</p>
               
-              <p>Anyway, if you've read this far then chances are you've come for a red panda gif.
-              Since I'd hate to be a disappointment…</p>
+              <p>Anyway, if you&rsquo;ve read this far then chances are you&rsquo;ve come for a red panda gif.
+              Since I&rsquo;d hate to be a disappointment&hellip;</p>
               
-              <p><img alt="red panda pumpkin" title="Take that pumpkin down a notch" src="/blog/2013/10/whats-goin-on/red-panda-pumpkin.gif" /></p>
-            </article>
-            <article class='post-article'>
-              <header>
-                <h3><a href="/blog/2013/08/we-did-it/">We did it</a></h3>
-                <p class='blog-stamp'>
-                  <time datetime='2013-08-16 16:18:00 -0400'>Aug 16, 2013</time>
-                </p>
-              </header>
-              <p>We did it, team. We made a website. I say we because I definitely did not
-              make this thing alone.</p>
-              
-              <p>This site was made possible with the help of a countless number of people in the
-              form of open-source libraries, tutorials, StackOverflow Q&amp;A, technical books,
-              and so forth. I know that this site isn't winning any Turing awards, but I'm
-              pretty happy with how it has turned out. Baby's first website, I know, I know.
-              There is still plenty of room for improvement and features, but I'll implement
-              them as I become more familiar with webdev. I'm happy with this as a base though.</p>
-              
-              <p>Before I settled down with <a href="http://middlemanapp.com/">Middleman</a> I had played with the idea of
-              making an actual blogging application in Rails for my site. I scrapped that idea
-              pretty quick. I also tried <a href="http://octopress.org/">Octopress</a> as well as a plain
-              <a href="http://jekyllrb.com/">Jekyll</a> site, but wasn't crazy about either of them. I'm sure there
-              are approximately one <a href="https://www.ruby-toolbox.com/categories/static_website_generation\">jigglybillion</a> other static site generators that
-              I completely passed by, but that's alright. I'm pretty comfy with Middleman.</p>
-              
-              <p>Other than Middleman (and a few extensions), I'm also using Haml, Sass,
-              and pieces of <a href="http://foundation.zurb.com/">Foundation</a>. I realize that aesthetically the site is
-              basically just colored-text (call me minimalist) and that technically
-              it is more layout, styling and configuration than anything else. Overall,
-              though, I'm pleased that I can mold this into whatever I want it to be (and,
-              by extension, prevent it from becoming something that I <em>don't</em> want it to be).</p>
-              
-              <p>Even if it means that the site just devolves into a red panda gif feed, at least
-              I am empowered to do so.</p>
+              <p><img title="Take that pumpkin down a notch" alt="red panda pumpkin" src="/blog/2013/10/whats-goin-on/red-panda-pumpkin.gif" /></p>
             </article>
           </section>
         </main>
