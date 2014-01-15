@@ -1,7 +1,13 @@
-pre.highlight {
-  overflow: auto;
-  white-space: pre;
+pre {
+  font-family: $code-fonts;
+  line-height: 1.25;
+  margin: 0;
   word-wrap: normal;
+  white-space: pre;
+}
+
+.highlight {
+  overflow: auto;
   border: 3px solid $code-gutter-bg;
 }
 

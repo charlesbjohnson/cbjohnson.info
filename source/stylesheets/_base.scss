@@ -25,18 +25,23 @@ h2 {
 }
 
 h3, h4, h5 {
+  color: $red-fg;
   font-weight: bold;
   margin: 0;
+  line-height: 1.25;
 }
 
 h3 {
-  color: $red-fg;
   font-size: 1.75rem;
 }
 
 h4 { font-size: 1.3rem; }
 
 h5 { font-size: 1.25rem; }
+
+code, pre {
+  font-family: $code-fonts;
+}
 
 code {
   color: $code-fg;
@@ -182,7 +187,7 @@ html, body, .wrapper {
 
   code { font-size: 0.9rem; }
 
-  pre.highlight { font-size: 0.4rem; }
+  .highlight { font-size: 0.6rem; }
 
   .footer { padding: 0 10%; }
 }
