@@ -24,6 +24,7 @@
 
 
 Time.zone = 'Eastern Time (US & Canada)'
+I18n.enforce_available_locales = false
 
 
 # Blog
