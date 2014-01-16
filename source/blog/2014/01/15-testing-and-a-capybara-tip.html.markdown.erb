@@ -24,13 +24,13 @@ Although I've since managed to pick up the pieces, the revelation that
 you could test an entire application (JavaScript included) with straightforward
 tests/specs in Ruby blew my mind.
 
-![mind-blown](<%= blog_image 'mind-blown.gif' %> "I know, I know. You must be sick of this one by now.")
+![mind-blown](<%= blog_image 'mind-blown.gif' %> "Totally relevant")
 
 In my newest project, for example, I've been using Capybara with
 [Poltergeist][poltergeist]. Whenever I'm using Capybara, I tend to want to
 just play with the API. This can be done by just fiddling with my tests and
-constantly rerunning them, but I found a an even simpler way to just use
-Capybara from Pry or IRB with this script (<code>pry_capybara.rb</code>):
+constantly rerunning them, but I found an even simpler way to just use
+Capybara from Pry or IRB with this script (`pry_capybara.rb`):
 
 ```ruby
 # Simple script to be able to quickly interact with the capybara API from pry

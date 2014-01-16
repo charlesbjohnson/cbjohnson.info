@@ -17,9 +17,10 @@ them as I become more familiar with webdev. I'm happy with this as a base though
 Before I settled down with [Middleman][middleman] I had played with the idea of
 making an actual blogging application in Rails for my site. I scrapped that idea
 pretty quick. I also tried [Octopress][octopress] as well as a plain
-[Jekyll][jekyll] site, but wasn't crazy about either of them. I'm sure there
-are approximately one [jigglybillion][generators] other static site generators that
-I completely passed by, but that's alright. I'm pretty comfy with Middleman.
+[Jekyll][jekyll] site, but wasn't crazy about either of them. I'm pretty sure that
+there are approximately one [jigglybillion][generators] other static site
+generators that I completely overlooked, but that's okay because Middleman is
+pretty comfy.
 
 Other than Middleman (and a few extensions), I'm also using Haml, Sass,
 and pieces of [Foundation][foundation]. I realize that aesthetically the site is

@@ -30,16 +30,17 @@ it doesn't work well with another feature of Middleman,
 end up having to use absolute links anyway. To compensate for this shortcoming,
 I process my markdown blog posts in ERB first so that I can also use a simple
 little helper method which gets the absolute file path of the image I want to
-use. It looks like this (<code>helpers/blog\_image\_helpers.rb</code>):
+use. It looks like this (`helpers/blog/image/helpers.rb`):
 
 ```ruby
+require 'find'
+
 module BlogImageHelpers
 
   def blog_image(image)
-    images = Find.find('source/blog').grep(/#{image}/)
-    return '' if images.empty?
-
-    images.first[/\/blog.+/]
+    Find.find(File.join('source', 'blog'))
+        .grep(/#{image}/)
+        .first.to_s[%r{/blog/.+}].to_s
   end
 
 end
@@ -51,7 +52,8 @@ Pretty simple. When used in a markdown link like this:
 ![some image](<%%= blog_image 'image.gif' %> "wow a gif")
 ```
 
-It produces:
+Provided that I have an image at `/blog/2013/12/02-some-post/image.gif`,
+then it will produce:
 
 ```markdown
 ![some image](/blog/2013/12/02-some-post/image.gif "wow a gif")
@@ -59,16 +61,16 @@ It produces:
 
 And that's good enough for Middleman to figure out the rest.
 
-#### But wait! There are more problems!
+#### But wait! There are still more problems!
 
 If you end up trying something similar to my own blog where you have individual
-blog posts as well as an index of blog posts, you will run into another
-problem. Middleman can't link to an image that is sitting in an article
-subdirectory from a page that is NOT that blog post. In my case, that meant that
-links to images on my blog index (at <code>/blog</code>) were incorrect.
-Links to images from a specific blog post
-(like <code>/blog/2013/12/some-post</code>) where that image actually appears,
-however, were totally fine.
+blog posts as well as an index of blog posts (hosted as static pages with
+[GitHub pages][cbjohnson-gh-pages]), you will run into another problem.
+Middleman can't link to an image that is sitting in an article subdirectory
+from a page that is NOT that blog post. In my case, that meant that links to
+images on my blog index (at `/blog`) were incorrect. Links to images from a
+specific blog post (like `/blog/2013/12/some-post`) where that image actually
+appears, however, were fine.
 
 I haven't been able to look into Middleman's source to see what it's trying to
 do here, but my guess is that this is a bug. Even though we give an absolute
@@ -81,17 +83,17 @@ actually be built as:
 ```
 
 No absolute path anywhere in sight! Where did it go!?! This may work for the
-actual blog post page at <code>/blog/2013/12/some-post</code>, but it
-definitely doesn't work for the blog index page at <code>/blog</code>.
+actual blog post page at `/blog/2013/12/some-post`, but it
+definitely doesn't work for the blog index page at `/blog`.
 
-Fortunately, there is a simple fix. Disable <code>relative_assets</code> in
-your <code>config.rb</code>.
+Fortunately, there is a simple fix. Disable `relative_assets` in
+your `config.rb`.
 
 ```ruby
 # Build-specific configuration
 configure :build do
   # Use relative URLs
-  #activate :relative_assets
+  # activate :relative_assets
 end
 ```
 
@@ -103,8 +105,8 @@ With that change, my links became absolute when Middleman built them. Like so:
 
 Afterwards, make sure any other assets that were using relative links are now
 set up to use absolute ones. So for me that meant making sure my application
-stylesheet and javascript from my default layout were absolute links.
-They needed to become (<code>source/layouts/layout.rb</code>):
+stylesheet and JavaScript from my default layout were absolute links.
+They needed to become (`source/layouts/layout.rb`):
 
 ```haml
 %head
@@ -115,10 +117,11 @@ They needed to become (<code>source/layouts/layout.rb</code>):
 ```
 
 And that's it! Now I've got images working across the blog. Glorious red panda
-filled images everywhere. Interspersed with wondrous code snippets.
+filled images everywhere, interspersed with wondrous code snippets.
 
 [mm-blog]: http://middlemanapp.com/basics/blogging/
 [subdirs]: http://middlemanapp.com/basics/blogging/#toc_14
 [dir_index]: http://middlemanapp.com/basics/pretty-urls/
 [dir_index_warn]: http://middlemanapp.com/basics/pretty-urls/#toc_1
 [dir_index_issue]: https://github.com/middleman/middleman/issues/818
+[cbjohnson-gh-pages]: https://github.com/charlesbjohnson/cbjohnson.info/tree/gh-pages
