@@ -1,11 +1,32 @@
-pre {
+// TYPOGRAPHY
+code, pre {
   font-family: $code-fonts;
+}
+
+code {
+  color: $code-fg;
+  background-color: $code-bg;
+  font-size: $code-size;
+  margin: 0 3px;
+}
+
+pre {
+  font-size: $code-block-size;
   line-height: 1.25;
   margin: 0;
   word-wrap: normal;
   white-space: pre;
 }
 
+
+// MOBILE TYPOGRAPHY
+@include at-breakpoint($mobile) {
+  code { font-size: $code-mobile-size; }
+  pre { font-size: $code-block-mobile-size; }
+}
+
+
+// APPEARANCE
 .highlight {
   overflow: auto;
   border: 3px solid $code-gutter-bg;
@@ -17,9 +38,10 @@ pre {
 
 .highlight table .code {
   width: 100%;
+  $padding: 12px;
   padding: {
-    top: 1.5%;
-    bottom: 1.5%;
+    top: $padding;
+    bottom: $padding;
   }
 }
 
@@ -31,7 +53,6 @@ pre {
 .highlight, .highlight .w {
   color: $code-fg;
   background-color: $code-bg;
-  font-size: 0.85rem;
 }
 
 .highlight .err {
