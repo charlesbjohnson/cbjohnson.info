@@ -47,6 +47,8 @@ p {
 }
 
 small { font-size: $small-size; }
+em { font-style: italic; }
+strong { font-style: bold; }
 
 blockquote {
   p {

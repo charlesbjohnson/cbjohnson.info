@@ -1,10 +1,11 @@
+require 'find'
+
 module BlogImageHelpers
 
   def blog_image(image)
-    images = Find.find('source/blog').grep(/#{image}/)
-    return '' if images.empty?
-
-    images.first[/\/blog.+/]
+    Find.find(File.join('source', 'blog'))
+        .grep(/#{image}/)
+        .first.to_s[%r{/blog/.+}].to_s
   end
 
 end
