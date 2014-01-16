@@ -2,5 +2,6 @@
 section: Blog
 ---
 - page_articles.first(3).each do |article|
-  %article.post-article
+  %article
     = partial 'partials/preview', locals: { article: article, full: true }
+  %hr.post-separator
