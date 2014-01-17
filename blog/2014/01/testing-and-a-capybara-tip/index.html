@@ -50,7 +50,7 @@
                   <time datetime='2014-01-15 17:16:00 -0500'>Jan 15, 2014</time>
                 </p>
               </header>
-              <section>
+              <section class='content-article'>
                 <p>When I first started learning Ruby one of the things that I read and heard over
                 and over again was how great the libraries for testing were. Coming from
                 C# and .NET, I had spent a lot of time working with <a href="http://www.specflow.org/">SpecFlow</a>,
@@ -73,12 +73,12 @@
                 you could test an entire application (JavaScript included) with straightforward
                 tests/specs in Ruby blew my mind.</p>
                 
-                <p><img title="I know, I know. You must be sick of this one by now." alt="mind-blown" src="/blog/2014/01/testing-and-a-capybara-tip/mind-blown.gif" /></p>
+                <p><img title="Totally relevant" alt="mind-blown" src="/blog/2014/01/testing-and-a-capybara-tip/mind-blown.gif" /></p>
                 
                 <p>In my newest project, for example, I&rsquo;ve been using Capybara with
                 <a href="https://github.com/jonleighton/poltergeist">Poltergeist</a>. Whenever I&rsquo;m using Capybara, I tend to want to
                 just play with the API. This can be done by just fiddling with my tests and
-                constantly rerunning them, but I found a an even simpler way to just use
+                constantly rerunning them, but I found an even simpler way to just use
                 Capybara from Pry or IRB with this script (<code>pry_capybara.rb</code>):</p>
                 <div class="highlight ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre><pre class="lineno">2</pre><pre class="lineno">3</pre><pre class="lineno">4</pre><pre class="lineno">5</pre><pre class="lineno">6</pre></td><td class="code"><pre><span class="c1"># Simple script to be able to quickly interact with the capybara API from pry</span>&#x000A;&#x000A;<span class="nb">require</span> <span class="s1">'capybara/poltergeist'</span>&#x000A;<span class="no">Capybara</span><span class="p">.</span><span class="nf">run_server</span> <span class="o">=</span> <span class="kp">false</span>&#x000A;<span class="no">Capybara</span><span class="p">.</span><span class="nf">current_driver</span> <span class="o">=</span> <span class="ss">:poltergeist</span>&#x000A;<span class="kp">include</span> <span class="no">Capybara</span><span class="o">::</span><span class="no">DSL</span></pre></td></tr></tbody></table></div>
                 <p>Capybara will complain about being included in the global scope, but as long as

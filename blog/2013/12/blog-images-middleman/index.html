@@ -50,7 +50,7 @@
                   <time datetime='2013-12-02 18:14:00 -0500'>Dec  2, 2013</time>
                 </p>
               </header>
-              <section>
+              <section class='content-article'>
                 <p>So I&rsquo;ve just wrapped up setting up code formatting for this blog and to put
                 it to the test I&rsquo;ve decided I would write about something that has been an
                 ongoing problem with this project, until now. That topic is&hellip; Blog images!</p>
@@ -78,24 +78,25 @@
                 end up having to use absolute links anyway. To compensate for this shortcoming,
                 I process my markdown blog posts in ERB first so that I can also use a simple
                 little helper method which gets the absolute file path of the image I want to
-                use. It looks like this (<code>helpers/blog_image_helpers.rb</code>):</p>
-                <div class="highlight ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre><pre class="lineno">2</pre><pre class="lineno">3</pre><pre class="lineno">4</pre><pre class="lineno">5</pre><pre class="lineno">6</pre><pre class="lineno">7</pre><pre class="lineno">8</pre><pre class="lineno">9</pre><pre class="lineno">10</pre></td><td class="code"><pre><span class="k">module</span> <span class="nn">BlogImageHelpers</span>&#x000A;&#x000A;  <span class="k">def</span> <span class="nf">blog_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>&#x000A;    <span class="n">images</span> <span class="o">=</span> <span class="no">Find</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="s1">'source/blog'</span><span class="p">).</span><span class="nf">grep</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">image</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>&#x000A;    <span class="k">return</span> <span class="s1">''</span> <span class="k">if</span> <span class="n">images</span><span class="p">.</span><span class="nf">empty?</span>&#x000A;&#x000A;    <span class="n">images</span><span class="p">.</span><span class="nf">first</span><span class="o">[</span><span class="sr">/\/blog.+/</span><span class="o">]</span>&#x000A;  <span class="k">end</span>&#x000A;&#x000A;<span class="k">end</span></pre></td></tr></tbody></table></div>
+                use. It looks like this (<code>helpers/blog/image/helpers.rb</code>):</p>
+                <div class="highlight ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre><pre class="lineno">2</pre><pre class="lineno">3</pre><pre class="lineno">4</pre><pre class="lineno">5</pre><pre class="lineno">6</pre><pre class="lineno">7</pre><pre class="lineno">8</pre><pre class="lineno">9</pre><pre class="lineno">10</pre><pre class="lineno">11</pre></td><td class="code"><pre><span class="nb">require</span> <span class="s1">'find'</span>&#x000A;&#x000A;<span class="k">module</span> <span class="nn">BlogImageHelpers</span>&#x000A;&#x000A;  <span class="k">def</span> <span class="nf">blog_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>&#x000A;    <span class="no">Find</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'source'</span><span class="p">,</span> <span class="s1">'blog'</span><span class="p">))</span>&#x000A;        <span class="p">.</span><span class="nf">grep</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">image</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>&#x000A;        <span class="p">.</span><span class="nf">first</span><span class="p">.</span><span class="nf">to_s</span><span class="o">[</span><span class="sr">%r{/blog/.+}</span><span class="o">]</span><span class="p">.</span><span class="nf">to_s</span>&#x000A;  <span class="k">end</span>&#x000A;&#x000A;<span class="k">end</span></pre></td></tr></tbody></table></div>
                 <p>Pretty simple. When used in a markdown link like this:</p>
                 <div class="highlight erb"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>![some image](<span class="cp">&lt;%=</span> <span class="n">blog_image</span> <span class="s1">'image.gif'</span> <span class="cp">%&gt;</span> "wow a gif")</pre></td></tr></tbody></table></div>
-                <p>It produces:</p>
+                <p>Provided that I have an image at <code>/blog/2013/12/02-some-post/image.gif</code>,
+                then it will produce:</p>
                 <div class="highlight markdown"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="p">![</span><span class="nv">some image</span><span class="p">](</span><span class="sx">/blog/2013/12/02-some-post/image.gif</span> <span class="nn">"wow a gif"</span><span class="p">)</span></pre></td></tr></tbody></table></div>
                 <p>And that&rsquo;s good enough for Middleman to figure out the rest.</p>
                 
-                <h4>But wait! There are more problems!</h4>
+                <h4>But wait! There are still more problems!</h4>
                 
                 <p>If you end up trying something similar to my own blog where you have individual
-                blog posts as well as an index of blog posts, you will run into another
-                problem. Middleman can&rsquo;t link to an image that is sitting in an article
-                subdirectory from a page that is NOT that blog post. In my case, that meant that
-                links to images on my blog index (at <code>/blog</code>) were incorrect.
-                Links to images from a specific blog post
-                (like <code>/blog/2013/12/some-post</code>) where that image actually appears,
-                however, were totally fine.</p>
+                blog posts as well as an index of blog posts (hosted as static pages with
+                <a href="https://github.com/charlesbjohnson/cbjohnson.info/tree/gh-pages">GitHub pages</a>), you will run into another problem.
+                Middleman can&rsquo;t link to an image that is sitting in an article subdirectory
+                from a page that is NOT that blog post. In my case, that meant that links to
+                images on my blog index (at <code>/blog</code>) were incorrect. Links to images from a
+                specific blog post (like <code>/blog/2013/12/some-post</code>) where that image actually
+                appears, however, were fine.</p>
                 
                 <p>I haven&rsquo;t been able to look into Middleman&rsquo;s source to see what it&rsquo;s trying to
                 do here, but my guess is that this is a bug. Even though we give an absolute
@@ -109,16 +110,16 @@
                 
                 <p>Fortunately, there is a simple fix. Disable <code>relative_assets</code> in
                 your <code>config.rb</code>.</p>
-                <div class="highlight ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre><pre class="lineno">2</pre><pre class="lineno">3</pre><pre class="lineno">4</pre><pre class="lineno">5</pre></td><td class="code"><pre><span class="c1"># Build-specific configuration</span>&#x000A;<span class="n">configure</span> <span class="ss">:build</span> <span class="k">do</span>&#x000A;  <span class="c1"># Use relative URLs</span>&#x000A;  <span class="c1">#activate :relative_assets</span>&#x000A;<span class="k">end</span></pre></td></tr></tbody></table></div>
+                <div class="highlight ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre><pre class="lineno">2</pre><pre class="lineno">3</pre><pre class="lineno">4</pre><pre class="lineno">5</pre></td><td class="code"><pre><span class="c1"># Build-specific configuration</span>&#x000A;<span class="n">configure</span> <span class="ss">:build</span> <span class="k">do</span>&#x000A;  <span class="c1"># Use relative URLs</span>&#x000A;  <span class="c1"># activate :relative_assets</span>&#x000A;<span class="k">end</span></pre></td></tr></tbody></table></div>
                 <p>With that change, my links became absolute when Middleman built them. Like so:</p>
                 <div class="highlight html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nt">&lt;img</span> <span class="na">title=</span><span class="s">"wow a gif"</span> <span class="na">alt=</span><span class="s">"some image"</span> <span class="na">src=</span><span class="s">"/blog/2013/12/some-post/image.gif"</span><span class="nt">&gt;</span></pre></td></tr></tbody></table></div>
                 <p>Afterwards, make sure any other assets that were using relative links are now
                 set up to use absolute ones. So for me that meant making sure my application
-                stylesheet and javascript from my default layout were absolute links.
+                stylesheet and JavaScript from my default layout were absolute links.
                 They needed to become (<code>source/layouts/layout.rb</code>):</p>
                 <div class="highlight haml"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre><pre class="lineno">2</pre><pre class="lineno">3</pre><pre class="lineno">4</pre><pre class="lineno">5</pre></td><td class="code"><pre><span class="nt">%head</span>&#x000A;  ...&#x000A;  <span class="p">=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">'/stylesheets/application'</span>&#x000A;  <span class="p">=</span> <span class="n">javascript_include_tag</span> <span class="s1">'/javascripts/application'</span>&#x000A;  ...</pre></td></tr></tbody></table></div>
                 <p>And that&rsquo;s it! Now I&rsquo;ve got images working across the blog. Glorious red panda
-                filled images everywhere. Interspersed with wondrous code snippets.</p>
+                filled images everywhere, interspersed with wondrous code snippets.</p>
               </section>
             </article>
           </section>
