@@ -3,5 +3,5 @@
     %header
       %h3= current_article.title
       = partial 'partials/blog_stamp', locals: { date: current_article.date }
-    %section
+    %section.content-article
       = find_and_preserve(yield)

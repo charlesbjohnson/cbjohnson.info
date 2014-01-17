@@ -22,7 +22,7 @@ h2, h3, h4, h5, h6 {
 h3, h4, h5, h6 {
   font-weight: bold;
   margin: 0;
-  line-height: 1.25;
+  line-height: $h-line-height;
 }
 
 h1 {
@@ -43,19 +43,30 @@ h6 { font-size: $h6-size; }
 
 p {
   font-size: $p-size;
-  line-height: 1.4;
+  line-height: $p-line-height;
 }
 
 small { font-size: $small-size; }
 em { font-style: italic; }
 strong { font-style: bold; }
 
+.content-article {
+  ol, ul {
+    font-size: $p-size;
+    padding-left: 5%;
+    line-height: $p-line-height;
+    ol, ul { margin: 0; }
+  }
+  ol { list-style-type: decimal; }
+  ul { list-style-type: square; }
+}
+
 blockquote {
   p {
     color: $quote-fg;
     font-size: $quote-size;
     font-style: italic;
-    line-height: 1.5;
+    line-height: $quote-line-height;
     padding: 10px 3.5%;
   }
 }
@@ -65,7 +76,7 @@ blockquote {
   text-align: center;
   p {
     margin: 0;
-    line-height: 0.85;
+    line-height: $footer-line-height;
   }
 }
 
@@ -124,6 +135,15 @@ a {
   h6 { font-size: $h6-mobile-size; }
 
   p { font-size: $p-mobile-size; }
+
+  small { font-size: $small-mobile-size; }
+
+  .content-article {
+    ol, ul {
+      font-size: $p-mobile-size;
+      padding-left: 7.5%;
+    }
+  }
 
   blockquote {
     p { font-size: $quote-mobile-size; }

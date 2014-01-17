@@ -12,7 +12,7 @@ code {
 
 pre {
   font-size: $code-block-size;
-  line-height: 1.25;
+  line-height: $code-line-height;
   margin: 0;
   word-wrap: normal;
   white-space: pre;
