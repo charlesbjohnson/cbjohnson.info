@@ -227,11 +227,4 @@ blockquote {
   margin: $separation auto;
   min-width: 75%;
   width: 75%;
-  &:last-child {
-    background-color: $red-fg;
-    border: {
-      top: 0px solid $gray-bg;
-      bottom: 0px solid $gray-bg;
-    }
-  }
 }
