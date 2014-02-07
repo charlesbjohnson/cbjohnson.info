@@ -1,0 +1,61 @@
+---
+title: Testing for Vim
+date: 2014-02-07 13:16 EST
+---
+I really enjoy using Vim. One of the best things about Vim is the community of
+plugins available. I've spent a small amount of time learning enough Vimscript
+to be able to understand what is happening in my vimrc (thanks to the great
+[book][vimscript-leanpub] by Steve Losh, which is also available for free
+[here][vimscript-free]) but I've been really fascinated by the amount of work
+that must go into making a Vim plugin. I feel like it must be fairly challenging
+considering how old Vim is, how scarce the resources for it are (beyond `:help`,
+of course), and how seemingly bizarre/arcane Vimscript is. Another thing that
+puzzled me was how a plugin author managed to effectively test their plugin, if
+they did at all.
+
+Some plugins separate the core of their logic from Vim entirely
+(such as [YouCompleteMe][ycm] and [Tern][tern] of [tern\_for\_vim][ternforvim])
+which also allows them to test the way that they would normally (whether it is
+through unit tests or specs or whatever else). If I've learned anything from 
+working with Ruby and Rails, however, it is that there is always room for
+integration testing. This led me to an interesting question: how do plugin
+authors perform integration testing?  And not even just for Vim... The same
+could be said about [ReSharper][resharper] and Visual Studio. What do they do?
+What tools are available and what _can_ they do?
+
+The other day I was looking through the source of [vim-easyclip][vimeasyclip]
+(great plugin, by the way, I recommend it) and I saw something peculiar.
+25% of the repo is written in Ruby. Turns out there is `spec/` directory with
+a bunch of RSpec in it. Then I saw this line in one of the specs:
+
+```ruby
+@vim = Vimbot::Driver.new
+```
+
+![intriguing](<%= blog_image 'intriguing.gif' %> "My face when")
+
+It turns out that in the case of Vim that there are actually a few tools
+specifically made for testing Vim plugins. They're even written in Ruby! Who
+would have guessed?  [vimbot][vimbot] is the plugin used by easyclip but it
+doesn't look like it has been updated in some time. There's also
+[vimrunner][vimrunner] and a few others from [this][stackoverflow-thread]
+question on StackOverlow.
+
+I have no idea why this excites me or if these tools are even all that great but
+I thought that this was pretty neat nonetheless. I'm always really surprised
+by the extent to which Ruby is used for testing and I'd like to know how these
+libraries actually work. Who knows, it may not even be all that special.
+
+That's all I got for this time. I just felt like sharing something I thought was
+interesting. Thanks for reading.
+
+[vimscript-leanpub]: https://leanpub.com/learnvimscriptthehardway
+[vimscript-free]: http://learnvimscriptthehardway.stevelosh.com/
+[ycm]: https://github.com/Valloric/YouCompleteMe
+[tern]: https://github.com/marijnh/tern 
+[ternforvim]: https://github.com/marijnh/tern_for_vim
+[resharper]: https://www.jetbrains.com/resharper/
+[vimeasyclip]:https://github.com/svermeulen/vim-easyclip 
+[vimbot]: https://github.com/maxbrunsfeld/vimbot
+[vimrunner]: https://github.com/AndrewRadev/vimrunner
+[stackoverflow-thread]: https://stackoverflow.com/questions/3029882/tools-for-testing-vim-plugins
