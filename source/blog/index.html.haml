@@ -1,9 +1,0 @@
----
-section: Blog
----
-- total_posts = 3
-- page_articles.first(total_posts).each_with_index do |article, i|
-  %article
-    = partial 'partials/preview', locals: { article: article, full: true }
-  - unless i == total_posts.pred
-    %hr.post-separator
