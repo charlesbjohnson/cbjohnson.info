@@ -1,0 +1,36 @@
+:root {
+  --line-height-ratio: 1.75;
+
+  --ms-bases: 1;
+  --ms-ratios: minorThird;
+
+  --ms-0-u: ms(0);
+  --ms-0: strip(var(--ms-0-u));
+
+  --ms-1-u: ms(1);
+  --ms-1: strip(var(--ms-1-u));
+
+  --ms-2-u: ms(2);
+  --ms-2: strip(var(--ms-2-u));
+
+  --ms-3-u: ms(3);
+  --ms-3: strip(var(--ms-3-u));
+
+  --ms-4-u: ms(4);
+  --ms-4: strip(var(--ms-4-u));
+
+  --ms-5-u: ms(5);
+  --ms-5: strip(var(--ms-5-u));
+
+  --small-breakpoint: 420px;
+  --medium-breakpoint: 420px;
+  --large-breakpoint: 1280px;
+}
+
+@custom-media --small-viewport (width <= 420px);
+@custom-media --medium-viewport (width > 420px) and (width <= 800px);
+@custom-media --max-medium-viewport (width <= 800px);
+@custom-media --large-viewport (width > 800px) and (width <= 1280px);
+
+@custom-selector :--base html, body;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
