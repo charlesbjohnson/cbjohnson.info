@@ -7,9 +7,6 @@
 .D\(ib\) {
   display: inline-block;
 }
-.D\(n\) {
-  display: none;
-}
 .Fw\(b\) {
   font-weight: bold;
 }
@@ -80,11 +77,6 @@
 }
 .W\(1\.1rem\) {
   width: 1.1rem;
-}
-@media print {
-  .D\(b\)--print {
-    display: block;
-  }
 }
 @media(--medium-viewport) {
   .Maw\(34rem\)--medium {

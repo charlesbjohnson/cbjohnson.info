@@ -54,8 +54,7 @@ gulp.task('build:css:atomic', function () {
         small: '@media(--small-viewport)',
         medium: '@media(--medium-viewport)',
         maxmedium: '@media(--max-medium-viewport)',
-        large: '@media(--large-viewport)',
-        print: '@media print'
+        large: '@media(--large-viewport)'
       },
 
       custom: {
