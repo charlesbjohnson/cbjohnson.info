@@ -1,6 +1,6 @@
 @media print {
   :root {
-    --line-height-ratio: 1.5;
+    --line-height-ratio: 1.65;
   }
 
   :--base {
