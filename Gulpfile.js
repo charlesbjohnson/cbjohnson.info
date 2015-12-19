@@ -29,12 +29,6 @@ const gulpMinifyCss = require('gulp-minify-css')
 const gulpRev = require('gulp-rev')
 const gulpRevReplace = require('gulp-rev-replace')
 
-gulp.task('vendor:css', function () {
-  return gulp
-    .src(['node_modules/normalize.css/normalize.css'])
-    .pipe(gulp.dest('vendor/stylesheets'))
-})
-
 gulp.task('vendor:images', function () {
   return gulp
     .src(['node_modules/octicons/svg/**/*'])
@@ -42,10 +36,10 @@ gulp.task('vendor:images', function () {
     .pipe(gulp.dest('public/vendor/images'))
 })
 
-gulp.task('vendor', ['vendor:css', 'vendor:images'])
+gulp.task('vendor', ['vendor:images'])
 
 gulp.task('clean:vendor', function () {
-  return del(['vendor/**/*', 'public/vendor/**/*'])
+  return del(['public/vendor/**/*'])
 })
 
 gulp.task('build:css:atomic', function () {
@@ -71,7 +65,7 @@ gulp.task('build:css:atomic', function () {
     .pipe(gulp.dest('src/stylesheets'))
 })
 
-gulp.task('build:css', ['vendor:css', 'build:css:atomic'], function () {
+gulp.task('build:css', ['build:css:atomic'], function () {
   return gulp
     .src(['src/stylesheets/style.css'])
     .pipe(gulpSourcemaps.init())
