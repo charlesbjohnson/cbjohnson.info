@@ -24,6 +24,8 @@
     "postcss-responsive-type": "^0.3.2",
     "postcss-color-function": "^2.0.0",
     "postcss-color-gray": "^3.0.0",
+    "postcss-merge-rules": "^2.0.3",
+    "css-mqpacker": "^4.0.0",
     "gulp-useref": "^3.0.4",
     "gulp-if": "^2.0.0",
     "gulp-minify-css": "^1.2.2",

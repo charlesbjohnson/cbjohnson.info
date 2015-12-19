@@ -20,6 +20,8 @@ const postcssCustomMedia = require('postcss-custom-media')
 const postcssResponsiveType = require('postcss-responsive-type')
 const postcssColorFunction = require('postcss-color-function')
 const postcssColorGray = require('postcss-color-gray')
+const postcssMergeRules = require('postcss-merge-rules')
+const cssMqPacker = require('css-mqpacker')
 
 const gulpUseref = require('gulp-useref')
 const gulpIf = require('gulp-if')
@@ -86,7 +88,9 @@ gulp.task('build:css', ['vendor:css', 'build:css:atomic'], function () {
       postcssCustomMedia(),
       postcssResponsiveType(),
       postcssColorFunction(),
-      postcssColorGray()
+      postcssColorGray(),
+      postcssMergeRules,
+      cssMqPacker()
     ]))
     .pipe(gulpConcat('style.css'))
     .pipe(gulpSourcemaps.write('.'))
