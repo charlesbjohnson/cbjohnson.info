@@ -86,17 +86,14 @@
     display: block;
   }
 }
-@media(--small-viewport) {
-  .D\(b\)--small {
-    display: block;
-  }
-  .Px\(1rem\)--small {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
 @media(--medium-viewport) {
   .Maw\(34rem\)--medium {
     max-width: 34rem;
+  }
+}
+@media(--small-viewport) {
+  .Px\(1rem\)--small {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
