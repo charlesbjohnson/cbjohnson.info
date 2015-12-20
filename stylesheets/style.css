@@ -586,6 +586,9 @@ a:hover::after,a:hover::after {
 .D\(ib\) {
   display: inline-block;
 }
+.D\(n\) {
+  display: none;
+}
 .Fw\(b\) {
   font-weight: bold;
 }
@@ -810,18 +813,29 @@ a:hover::after,a:hover::after {
   }
 }
 
-@media(min-width: 421px) and (max-width: 800px) {
+@media(max-width: 800px) {
 
-  .Maw\(34rem\)--medium {
-    max-width: 34rem;
+  .D\(b\)--maxmedium {
+    display: block;
   }
 }
 
 @media(max-width: 420px) {
 
+  .D\(b\)--small {
+    display: block;
+  }
+
   .Px\(1rem\)--small {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+}
+
+@media(min-width: 421px) and (max-width: 800px) {
+
+  .Maw\(34rem\)--medium {
+    max-width: 34rem;
   }
 }
 
