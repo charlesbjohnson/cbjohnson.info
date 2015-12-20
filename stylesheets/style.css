@@ -820,22 +820,18 @@ a:hover::after,a:hover::after {
   }
 }
 
-@media(max-width: 420px) {
-
-  .D\(b\)--small {
-    display: block;
-  }
-
-  .Px\(1rem\)--small {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-
 @media(min-width: 421px) and (max-width: 800px) {
 
   .Maw\(34rem\)--medium {
     max-width: 34rem;
+  }
+}
+
+@media(max-width: 420px) {
+
+  .Px\(1rem\)--small {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
