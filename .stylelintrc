@@ -1,3 +1,7 @@
 {
-  "extends": ["stylelint-config-suitcss"]
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "function-whitespace-after": null,
+    "property-no-unknown": null
+  }
 }

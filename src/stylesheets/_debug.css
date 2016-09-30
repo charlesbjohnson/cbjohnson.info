@@ -1,4 +1,4 @@
 body {
-  background: linear-gradient(to top, rgba(0,0,255,0.1) 5%, #fff 5%);
+  background: linear-gradient(to top, rgba(0, 0, 255, 0.1) 5%, #fff 5%);
   background-size: 100% var(--line-height-ratio)em;
 }
