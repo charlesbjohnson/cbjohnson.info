@@ -1,58 +1,129 @@
 {
-  "name": "cbjohnson.info",
-  "scripts": {
-    "co-gh-pages": "git checkout gh-pages",
-    "co-master": "git checkout master",
-    "commit-dist" : "git add --all ./ && git commit --all --message 'gh-pages update'",
-    "dist": "gulp clean && gulp dist",
-    "dry-publish-dist": "npm run write-dist && npm run commit-dist",
-    "gh-pages-publish": "npm run dist && npm run co-gh-pages && npm run publish-dist && npm run co-master",
-    "gh-pages-stage": "npm run dist && npm run co-gh-pages && npm run dry-publish-dist && npm run co-master",
-    "lint": "stylelint src/stylesheets/**/*.css",
-    "publish-dist": "npm run write-dist && npm run commit-dist && npm run push-dist",
-    "push-dist": "git push origin gh-pages",
-    "start": "http-server public",
-    "write-dist": "cp -rf public/* ./ && rm -rf ./public"
-  },
-  "dependencies": {
-    "autoprefixer": "6.5.0",
-    "css-mqpacker": "5.0.1",
-    "del": "2.2.0",
-    "gulp": "3.9.1",
-    "gulp-atomizer": "1.0.6",
-    "gulp-concat": "2.6.0",
-    "gulp-if": "2.0.1",
-    "gulp-imagemin": "3.0.3",
-    "gulp-minify-css": "1.2.4",
-    "gulp-postcss": "6.2.0",
-    "gulp-rev": "7.1.2",
-    "gulp-rev-replace": "0.4.3",
-    "gulp-sourcemaps": "1.6.0",
-    "gulp-useref": "3.1.2",
-    "normalize.css": "4.2.0",
-    "octicons": "3.1.0",
-    "postcss-calc": "5.3.1",
-    "postcss-color-function": "2.0.1",
-    "postcss-color-gray": "3.0.0",
-    "postcss-css-variables": "0.6.0",
-    "postcss-custom-media": "5.0.1",
-    "postcss-custom-selectors": "3.0.0",
-    "postcss-import": "8.1.2",
-    "postcss-media-minmax": "2.1.2",
-    "postcss-merge-rules": "2.0.10",
-    "postcss-modular-scale": "2.5.2",
-    "postcss-nested": "1.0.0",
-    "postcss-responsive-type": "0.4.0",
-    "postcss-strip-units": "1.2.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "7.0.0",
-    "http-server": "0.9.0",
-    "standard": "8.3.0",
-    "stylelint": "7.3.1",
-    "stylelint-config-standard": "13.0.2"
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint"
-  }
+	"private": true,
+	"name": "cbjohnson.info",
+	"license": "MIT",
+	"version": "0.0.0",
+	"scripts": {
+		"check": "run-p check:*",
+		"check:commit": "commitlint --from master",
+		"check:lint:css": "stylelint 'src/**/*.css'",
+		"check:lint:js": "xo",
+		"deploy": "run-s dev:build deploy:commit",
+		"deploy:commit": "gh-pages --dist dist/ --message 'build: deploy' --no-push",
+		"dev:build": "webpack --config webpack/production.js",
+		"dev:clean": "rm -rf dist/",
+		"dev:run": "webpack-serve --config webpack/development.js",
+		"fmt": "npm-run-all fmt:pkg --parallel fmt:code:*",
+		"fmt:code:css": "prettier --write 'src/**/*.css'",
+		"fmt:code:js": "prettier --write 'src/**/*.js'",
+		"fmt:pkg": "prettier-package-json --use-tabs --write",
+		"postinstall": "yarn-bin-fix",
+		"release": "standard-version"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^6.1.3",
+		"@commitlint/config-conventional": "^6.1.3",
+		"autoprefixer": "^8.1.0",
+		"clean-webpack-plugin": "^0.1.19",
+		"copy-webpack-plugin": "^4.5.1",
+		"css-loader": "^0.28.11",
+		"css-mqpacker": "^6.0.2",
+		"eslint-config-prettier": "^2.9.0",
+		"eslint-plugin-prettier": "^2.6.0",
+		"extract-loader": "^2.0.1",
+		"file-loader": "^1.1.11",
+		"gh-pages": "^1.1.0",
+		"html-loader": "^0.5.5",
+		"node": "^9.8.0",
+		"npm-run-all": "^4.1.2",
+		"npx": "^10.0.1",
+		"octicons": "^7.1.0",
+		"postcss-calc": "^6.0.1",
+		"postcss-color-function": "^4.0.1",
+		"postcss-color-gray": "^4.1.0",
+		"postcss-css-variables": "^0.8.0",
+		"postcss-custom-media": "^6.0.0",
+		"postcss-custom-selectors": "^4.0.1",
+		"postcss-import": "^11.1.0",
+		"postcss-loader": "^2.1.3",
+		"postcss-media-minmax": "^3.0.0",
+		"postcss-merge-rules": "^2.1.2",
+		"postcss-modular-scale": "^2.5.2",
+		"postcss-nesting": "^4.2.1",
+		"postcss-normalize": "^4.0.0",
+		"postcss-responsive-type": "^1.0.0",
+		"postcss-strip-units": "^2.0.1",
+		"posthtml-atomizer": "^1.0.0",
+		"posthtml-loader": "^1.0.1",
+		"prettier": "^1.11.1",
+		"prettier-package-json": "^1.5.1",
+		"standard-version": "^4.3.0",
+		"stylelint": "^9.1.3",
+		"stylelint-config-xo": "^0.7.0",
+		"stylelint-config-xo-scss": "^0.3.0",
+		"svg-url-loader": "^2.3.2",
+		"universal-ga": "^1.2.0",
+		"webfontloader": "^1.6.28",
+		"webpack": "^4.2.0",
+		"webpack-cli": "^2.0.12",
+		"webpack-merge": "^4.1.2",
+		"webpack-serve": "^0.2.0",
+		"xo": "^0.20.3",
+		"yarn": "^1.5.1",
+		"yarn-bin-fix": "^0.1.15"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"prettier": {
+		"bracketSpacing": false,
+		"singleQuote": true,
+		"trailingComma": "all",
+		"useTabs": true
+	},
+	"stylelint": {
+		"extends": [
+			"stylelint-config-xo",
+			"stylelint-config-xo-scss"
+		],
+		"rules": {
+			"declaration-colon-newline-after": null,
+			"property-no-unknown": null,
+			"value-list-comma-newline-after": null
+		}
+	},
+	"xo": {
+		"extends": [
+			"plugin:prettier/recommended"
+		],
+		"prettier": true,
+		"rules": {
+			"new-cap": [
+				"error",
+				{
+					"capIsNew": false
+				}
+			],
+			"import/order": [
+				"error",
+				{
+					"groups": [
+						[
+							"builtin",
+							"external",
+							"internal"
+						],
+						[
+							"index",
+							"parent",
+							"sibling"
+						]
+					],
+					"newlines-between": "always"
+				}
+			]
+		}
+	}
 }

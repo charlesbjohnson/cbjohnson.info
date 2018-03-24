@@ -1,9 +1,9 @@
-@import "../../node_modules/normalize.css/normalize";
-@import "./_variables";
-@import "./_colors";
-@import "./_base";
-@import "./_print";
-@import "./_typography";
-@import "./_atomic";
+@import './partials/normalize';
+@import './partials/variables';
+@import './partials/colors';
+@import './partials/base';
+@import './partials/print';
+@import './partials/typography';
+@import './partials/atomic';
 
-/* @import "./_debug"; */
+/* @import './partials/debug'; */

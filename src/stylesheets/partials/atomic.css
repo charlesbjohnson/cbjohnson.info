@@ -1,0 +1,107 @@
+/* stylelint-disable */
+
+.C\(clr-black\) {
+	color: var(--black);
+}
+.C\(clr-lightgray\) {
+	color: var(--light-gray);
+}
+.D\(ib\) {
+	display: inline-block;
+}
+.D\(n\) {
+	display: none;
+}
+.Fw\(b\) {
+	font-weight: bold;
+}
+.Fw\(lr\) {
+	font-weight: lighter;
+}
+.Fw\(n\) {
+	font-weight: normal;
+}
+.Fz\(0\.85rem\) {
+	font-size: 0.85rem;
+}
+.Fs\(n\) {
+	font-style: normal;
+}
+.H\(vr-5\) {
+	height: calc(0.5rem * var(--line-height-ratio));
+}
+.H\(vr-55\) {
+	height: calc(0.55rem * var(--line-height-ratio));
+}
+.Lts\(1px\) {
+	letter-spacing: 1px;
+}
+.Lts\(2px\) {
+	letter-spacing: 2px;
+}
+.Lts\(4px\) {
+	letter-spacing: 4px;
+}
+.My\(vr1\),
+.Mt\(vr1\) {
+	margin-top: calc(1rem * var(--line-height-ratio));
+}
+.My\(vr1\) {
+	margin-bottom: calc(1rem * var(--line-height-ratio));
+}
+.Mt\(vr1n\) {
+	margin-top: calc(-1rem * var(--line-height-ratio));
+}
+.Mend\(0\.25rem\) {
+	margin-right: 0.25rem;
+}
+.Mstart\(0\.09rem\) {
+	margin-left: 0.09rem;
+}
+.Mstart\(0\.175rem\) {
+	margin-left: 0.175rem;
+}
+.Mstart\(1\.5rem\) {
+	margin-left: 1.5rem;
+}
+.Maw\(40rem\) {
+	max-width: 40rem;
+}
+.Px\(2rem\) {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+.Py\(vr1\) {
+	padding-top: calc(1rem * var(--line-height-ratio));
+	padding-bottom: calc(1rem * var(--line-height-ratio));
+}
+.Tt\(u\) {
+	text-transform: uppercase;
+}
+.Va\(m\) {
+	vertical-align: middle;
+}
+.W\(1\.1rem\) {
+	width: 1.1rem;
+}
+@media (--small-viewport) {
+	.Px\(1rem\)--small {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+}
+@media (--medium-viewport) {
+	.Maw\(34rem\)--medium {
+		max-width: 34rem;
+	}
+}
+@media (--max-medium-viewport) {
+	.D\(b\)--maxmedium {
+		display: block;
+	}
+}
+@media print {
+	.Maw\(52rem\)\!--print {
+		max-width: 52rem !important;
+	}
+}

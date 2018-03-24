@@ -1,0 +1,9 @@
+@media print {
+	:root {
+		--line-height-ratio: 1.65;
+	}
+
+	:--base {
+		font-size: 11px;
+	}
+}
