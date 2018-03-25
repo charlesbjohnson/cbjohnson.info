@@ -35,6 +35,7 @@ Config.RULES = {
 			{
 				loader: 'html-loader',
 				options: {
+					interpolate: true,
 					attrs: ['img:src', 'link:href'],
 				},
 			},

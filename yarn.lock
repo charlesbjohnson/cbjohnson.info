@@ -6938,6 +6938,17 @@ posthtml-loader@^1.0.1:
     posthtml-load-config "^1.0.0"
     schema-utils "^0.4.3"
 
+posthtml-match-helper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/posthtml-match-helper/-/posthtml-match-helper-1.0.1.tgz#451253de8e5844a348e963ad5edd7769eb129513"
+
+posthtml-modules@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/posthtml-modules/-/posthtml-modules-0.4.2.tgz#f58afa33f480f832ec8f4bb3510e2ccae6b1a535"
+  dependencies:
+    posthtml-match-helper "^1.0.1"
+    posthtml-render "^1.0.6"
+
 posthtml-parser@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.3.3.tgz#3fe986fca9f00c0f109d731ba590b192f26e776d"
@@ -6946,7 +6957,7 @@ posthtml-parser@^0.3.3:
     isobject "^2.1.0"
     object-assign "^4.1.1"
 
-posthtml-render@^1.1.0:
+posthtml-render@^1.0.6, posthtml-render@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/posthtml-render/-/posthtml-render-1.1.2.tgz#1755717c3ad12f4e6d8846767fa2f0bafdd7f33f"
 

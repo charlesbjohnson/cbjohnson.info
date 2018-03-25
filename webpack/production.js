@@ -45,7 +45,16 @@ const Production = WebpackMerge.strategy({module: 'replace'})([
 
 				WebpackMerge.strategy({use: 'replace'})([
 					Config.RULES.IMAGE,
-					{use: [{loader: 'svg-url-loader'}]},
+					{
+						use: [
+							{
+								loader: 'svg-url-loader',
+								options: {
+									noquotes: true,
+								},
+							},
+						],
+					},
 				]),
 			],
 		},

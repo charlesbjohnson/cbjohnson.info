@@ -55,6 +55,7 @@
 		"postcss-strip-units": "^2.0.1",
 		"posthtml-atomizer": "^1.0.0",
 		"posthtml-loader": "^1.0.1",
+		"posthtml-modules": "^0.4.2",
 		"prettier": "^1.11.1",
 		"prettier-package-json": "^1.5.1",
 		"standard-version": "^4.3.0",
