@@ -86,7 +86,6 @@ a {
 		width: 100%;
 	}
 
-	&:hover::after,
 	&:hover::after {
 		height: var(--height);
 		opacity: 1;
