@@ -2,7 +2,7 @@
 	"private": true,
 	"name": "cbjohnson.info",
 	"license": "MIT",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"scripts": {
 		"check": "run-p check:*",
 		"check:commit": "commitlint --from master",
