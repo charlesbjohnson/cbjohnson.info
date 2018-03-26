@@ -1,13 +1,13 @@
 <div>
     <h4>Lob</h4>
-    <span class="Fw(n)">Software Engineer</span>
+    <span class="Fw(n)">Senior Software Engineer</span>
 
     <div>
         <span class="D(ib) W(1.1rem) Mend(0.25rem)">
             <img src="${require('octicons/build/svg/calendar.svg')}" class="H(vr-5) W(auto) Va(m)">
         </span>
 
-        <span class="Fz(0.85rem)">Present</span>
+        <span class="Fz(0.85rem)">2016 - 2017</span>
     </div>
 
     <div>
@@ -23,15 +23,31 @@
             <img src="${require('octicons/build/svg/tools.svg')}" class="H(vr-5) W(auto)">
         </span>
 
-        <div class="Fz(0.85rem) Mstart(1.5rem) Mt(vr1n)">Node, Hapi, Docker, AWS, Terraform, Packer, PostgreSQL, Redis, Logstash, Elasticsearch</div>
+        <div class="Fz(0.85rem) Mstart(1.5rem) Mt(vr1n)">Node, Hapi, Go, Docker, CoreOS, AWS, Terraform, Packer, Serverless, PostgreSQL, Redis, Logstash, Elasticsearch</div>
     </div>
 
     <ul>
-        <li>Contributed to the Print &amp; Mail API platform, a service that sends millions of pieces of mail per month all over the US.</li>
-        <li>Designed and implemented the infrastructure migration from manual management of snowflake servers to an auto scaling and automated infrastructure based on Docker and AWS ECS.</li>
-        <li>Introduced and internally evangelized the pragmatic benefits of infrastructure as code by carefully adopting parts of the Hashicorp stack.</li>
-        <li>Led the development effort to migrate the rapidly growing amount of mail tracking information out of Postgres and into Elasticsearch without breaking any of the Operations team's existing data analysis workflows.</li>
-        <li>Designed and specced the Templates project, a product aimed at simplifying the process of designing a Postcard, Letter, or Check for companies with dedicated visual designers.</li>
-        <li>Trained and mentored summer interns as well as junior engineers.</li>
+        <li>Lead engineer on the Partner Operations Team, responsible for routing and fulfillment to print partners on the backend.</li>
+        <ul class="Fz(0.9rem)">
+            <li>Worked cross-functionally to perform in-depth research in identifying bottlenecks and roadmapping a path towards greater scalability.</li>
+            <li>Completely refactored the fulfillment worker codebase, increasing throughput while reducing error rates.</li>
+            <li>Designed and implemented a prototype agent to dramatically improve throughput and automate previously manual workflows.</li>
+            <li>Architected the migration path to deploying and using the agent in production.</li>
+        </ul>
+
+        <li>Took the lead role at the DevOps and infrastructural level by migrating multiple critical path services to more robust infrastructure.</li>
+        <ul class="Fz(0.9rem)">
+            <li>Designed, implemented, and deployed the infrastructure migration from time-intensive, manual management of snowflake servers to an automated and autoscaling infrastructure built on AWS ECS.</li>
+            <li>Raised the baseline level of security by conforming to AWS security best practices in VPC configuration, private subnetting, security group hardening, and IAM policy scoping.</li>
+            <li>Carefully introduced an infrastructure-as-code approach and offered training on why and how to use tools such as Terraform and Docker.</li>
+            <li>Prioritized and advocated for managed infrastructure to reduce engineering time spent resolving operational issues.</li>
+        </ul>
+
+        <li>Individual contributor to the Platform Team, developing features for the public API that receives millions of requests per month.</li>
+        <ul class="Fz(0.9rem)">
+            <li>Designed, specced, and managed the development of the Templates API, a product that simplifies the visual design process of a print order.</li>
+        </ul>
+
+        <li>Trained and mentored interns and junior engineers.</li>
     </ul>
 </div>
