@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/charlesbjohnson/cbjohnson.info/compare/v1.1.0...v1.1.1) (2018-03-28)
+
+
+### Bug Fixes
+
+* clean up grammar ([fe9ec0c](https://github.com/charlesbjohnson/cbjohnson.info/commit/fe9ec0c))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/charlesbjohnson/cbjohnson.info/compare/v1.0.0...v1.1.0) (2018-03-26)
 
